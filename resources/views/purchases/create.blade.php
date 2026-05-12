@@ -26,9 +26,10 @@
                 {{-- Ebook Summary Card --}}
                 <div style="background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:24px; margin-bottom:24px;">
                     <div class="d-flex gap-4 align-items-center">
-                        @if($ebook->cover_image)
-                            <img src="{{ asset('storage/' . $ebook->cover_image) }}"
+                        @if($ebook->cover_url)
+                            <img src="{{ $ebook->cover_url }}"
                                 style="width:80px; height:100px; object-fit:cover; border-radius:10px; flex-shrink:0; box-shadow:0 4px 12px rgba(0,0,0,.12);"
+                                onerror="this.onerror=null; this.src='{{ $ebook->cover_fallback_url }}';"
                                 alt="{{ $ebook->title }}">
                         @else
                             <div style="width:80px; height:100px; background:linear-gradient(135deg,#e0e7ff,#c7d2fe); border-radius:10px; flex-shrink:0; display:flex; align-items:center; justify-content:center;">

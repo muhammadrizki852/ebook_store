@@ -28,14 +28,31 @@
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-start">
                     <div>
-                        <p class="text-muted small mb-1 fw-semibold text-uppercase" style="letter-spacing: 0.05em;">Total Ebooks</p>
+                        <p class="text-muted small mb-1 fw-semibold text-uppercase" style="letter-spacing: 0.05em;">Ebooks Sold</p>
+                        <h2 class="fw-bold mb-0">{{ number_format($totalSales) }}</h2>
+                    </div>
+                    <div class="stat-icon" style="background: #fee2e2; color: #b91c1c;">
+                        <i class="bi bi-bag-check-fill"></i>
+                    </div>
+                </div>
+                <p class="text-muted small mt-3 mb-0"><i class="bi bi-check2-circle me-1"></i>Approved purchases</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-3">
+        <div class="card stat-card shadow-sm h-100">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-muted small mb-1 fw-semibold text-uppercase" style="letter-spacing: 0.05em;">Ebooks in App</p>
                         <h2 class="fw-bold mb-0">{{ number_format($totalEbooks) }}</h2>
                     </div>
                     <div class="stat-icon" style="background: #dbeafe; color: #1d4ed8;">
                         <i class="bi bi-journal-richtext"></i>
                     </div>
                 </div>
-                <p class="text-muted small mt-3 mb-0"><i class="bi bi-check-circle me-1"></i>{{ $publishedEbooks }} published</p>
+                <p class="text-muted small mt-3 mb-0"><i class="bi bi-check-circle me-1"></i>{{ $publishedEbooks }} published, {{ $draftEbooks }} draft hidden</p>
             </div>
         </div>
     </div>
@@ -108,7 +125,7 @@
                         <i class="bi bi-journal-richtext fs-5"></i>
                         <div class="text-start">
                             <div class="fw-semibold">Manage Ebooks</div>
-                            <small class="opacity-75">{{ $totalEbooks }} total</small>
+                            <small class="opacity-75">{{ $totalEbooks }} in app</small>
                         </div>
                     </a>
                     <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary d-flex align-items-center gap-2">

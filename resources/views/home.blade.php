@@ -179,8 +179,9 @@
                     <div class="col">
                         <div class="book-card h-100">
                             <div class="book-cover-wrap">
-                                @if($ebook->cover_image)
-                                    <img src="{{ asset('storage/' . $ebook->cover_image) }}" alt="{{ $ebook->title }}">
+                                @if($ebook->cover_url)
+                                    <img src="{{ $ebook->cover_url }}" alt="{{ $ebook->title }}"
+                                        onerror="this.onerror=null; this.src='{{ $ebook->cover_fallback_url }}';">
                                 @else
                                     <div class="book-cover-placeholder">
                                         <i class="bi bi-book"></i>

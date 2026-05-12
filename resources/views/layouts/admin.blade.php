@@ -81,6 +81,9 @@
             <a href="{{ route('admin.payments.index') }}" class="sidebar-link {{ request()->routeIs('admin.payments.*') ? 'active' : '' }}">
                 <i class="bi bi-credit-card"></i> Payments
             </a>
+            <a href="{{ route('admin.transaction-activities.index') }}" class="sidebar-link {{ request()->routeIs('admin.transaction-activities.*') ? 'active' : '' }}">
+                <i class="bi bi-activity"></i> Transaction Activities
+            </a>
 
             <div class="sidebar-section mt-2">Users</div>
             <a href="{{ route('admin.users.index') }}" class="sidebar-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">

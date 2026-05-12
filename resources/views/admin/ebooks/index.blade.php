@@ -38,9 +38,10 @@
                         <tr>
                             <td class="ps-4 py-3">
                                 <div class="d-flex align-items-center gap-3">
-                                    @if($ebook->cover_image)
-                                        <img src="{{ asset('storage/' . $ebook->cover_image) }}"
+                                    @if($ebook->cover_url)
+                                        <img src="{{ $ebook->cover_url }}"
                                             class="rounded-2" style="width: 42px; height: 55px; object-fit: cover;"
+                                            onerror="this.onerror=null; this.src='{{ $ebook->cover_fallback_url }}';"
                                             alt="{{ $ebook->title }}">
                                     @else
                                         <div class="rounded-2 d-flex align-items-center justify-content-center flex-shrink-0"
@@ -72,7 +73,7 @@
                                     </span>
                                 @endif
                             </td>
-                            <td class="small text-muted">{{ $ebook->approvedPurchases()->count() }} sold</td>
+                            <td class="small text-muted">{{ number_format($ebook->sales_count) }} sold</td>
                             <td class="pe-4 text-end">
                                 <div class="d-flex gap-2 justify-content-end">
                                     <a href="{{ route('ebooks.show', $ebook->slug) }}" class="btn btn-sm btn-outline-secondary" target="_blank" title="Preview">

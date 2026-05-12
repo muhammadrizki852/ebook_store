@@ -2,14 +2,17 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EbookController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LibraryController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UserAvatarController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EbookController as AdminEbookController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\TransactionActivityController;
 use Illuminate\Support\Facades\Route;
 
 // Auth routes
@@ -39,10 +42,14 @@ Route::get('/ebooks/{ebook:slug}', [EbookController::class, 'show'])->name('eboo
 
 // Authenticated user routes
 Route::middleware('auth')->group(function () {
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/library', [LibraryController::class, 'index'])->name('library');
     Route::get('/library/download/{ebook}', [LibraryController::class, 'download'])->name('library.download');
     Route::get('/purchase/{ebook}', [PurchaseController::class, 'create'])->name('purchase.create');
     Route::post('/purchase/{ebook}', [PurchaseController::class, 'store'])->name('purchase.store');
+    Route::post('/purchase/{ebook:slug}/quick', [PurchaseController::class, 'quickStore'])->name('purchase.quick-store');
+    Route::post('/favorites/{ebook:slug}', [FavoriteController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{ebook:slug}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 });
 
 // Admin routes
@@ -59,4 +66,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Users
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+    // Transaction Activities CRUD
+    Route::resource('transaction-activities', TransactionActivityController::class);
 });

@@ -24,10 +24,11 @@
             {{-- Book Cover --}}
             <div class="col-md-4 col-lg-3">
                 <div class="sticky-top" style="top: 90px;">
-                    @if($ebook->cover_image)
-                        <img src="{{ asset('storage/' . $ebook->cover_image) }}"
+                    @if($ebook->cover_url)
+                        <img src="{{ $ebook->cover_url }}"
                             class="img-fluid w-100"
                             alt="{{ $ebook->title }}"
+                            onerror="this.onerror=null; this.src='{{ $ebook->cover_fallback_url }}';"
                             style="border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,.15); max-height:420px; object-fit:cover;">
                     @else
                         <div style="height:360px; border-radius:16px; background:linear-gradient(135deg,#e0e7ff,#c7d2fe); display:flex; align-items:center; justify-content:center; box-shadow:0 20px 60px rgba(0,0,0,.1);">

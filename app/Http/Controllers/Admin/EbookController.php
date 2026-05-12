@@ -12,11 +12,15 @@ class EbookController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Ebook::query();
+        $query = Ebook::withCount([
+            'approvedPurchases as sales_count',
+        ]);
 
         if ($search = $request->get('search')) {
-            $query->where('title', 'like', "%{$search}%")
-                  ->orWhere('author', 'like', "%{$search}%");
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('author', 'like', "%{$search}%");
+            });
         }
 
         $ebooks = $query->latest()->paginate(15);

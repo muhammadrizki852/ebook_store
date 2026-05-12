@@ -51,6 +51,11 @@ class User extends Authenticatable
         return $this->hasMany(Purchase::class)->where('payment_status', 'approved');
     }
 
+    public function favoriteEbooks()
+    {
+        return $this->belongsToMany(Ebook::class, 'favorites')->withTimestamps();
+    }
+
     public function getAvatarUrlAttribute(): string
     {
         if (!empty($this->avatar)) {
@@ -58,7 +63,11 @@ class User extends Authenticatable
                 return route('users.avatar', $this);
             }
 
-            return $this->avatar;
+            if (str_starts_with($this->avatar, '/')) {
+                return $this->avatar;
+            }
+
+            return asset('storage/' . $this->avatar);
         }
 
         $email = strtolower(trim((string) $this->email));

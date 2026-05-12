@@ -56,9 +56,10 @@
 
                             {{-- Cover --}}
                             <div class="col-auto">
-                                @if($purchase->ebook && $purchase->ebook->cover_image)
-                                    <img src="{{ asset('storage/' . $purchase->ebook->cover_image) }}"
+                                @if($purchase->ebook && $purchase->ebook->cover_url)
+                                    <img src="{{ $purchase->ebook->cover_url }}"
                                         style="width:72px; height:90px; object-fit:cover; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.12);"
+                                        onerror="this.onerror=null; this.src='{{ $purchase->ebook->cover_fallback_url }}';"
                                         alt="{{ $purchase->ebook->title }}">
                                 @else
                                     <div style="width:72px; height:90px; background:linear-gradient(135deg,#e0e7ff,#c7d2fe); border-radius:10px; display:flex; align-items:center; justify-content:center;">
