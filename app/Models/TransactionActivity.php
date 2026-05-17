@@ -10,12 +10,18 @@ class TransactionActivity extends Model
     use HasFactory;
 
     protected $fillable = [
+        'purchase_id',
         'user_id',
         'ebook_id',
         'activity_type',
         'description',
         'amount',
     ];
+
+    public function purchase()
+    {
+        return $this->belongsTo(Purchase::class);
+    }
 
     public function user()
     {

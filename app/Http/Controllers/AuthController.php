@@ -156,7 +156,13 @@ class AuthController extends Controller
         Auth::login($user, $remember);
         $request->session()->regenerate();
 
-        return redirect()->route($user->isAdmin() ? 'admin.dashboard' : 'home')
+        if ($user->isAdmin()) {
+            return redirect()->route('admin.dashboard')
+                ->with('success', 'Selamat datang, ' . $user->name . '!');
+        }
+
+        return redirect()->route('home')
+            ->with('force_home_after_login', true)
             ->with('success', 'Selamat datang, ' . $user->name . '!');
     }
 
@@ -256,6 +262,10 @@ class AuthController extends Controller
 
     private function startTwoFactorChallenge(Request $request, User $user, bool $remember)
     {
+        if (!$this->twoFactorEnabled()) {
+            return $this->completeLogin($request, $user, $remember);
+        }
+
         try {
             $this->issueTwoFactorCode($user);
         } catch (\Throwable $exception) {
@@ -265,7 +275,7 @@ class AuthController extends Controller
 
             return back()->withErrors([
                 'email' => 'Kode OTP gagal dikirim ke email. Periksa konfigurasi SMTP/mail server Anda lalu coba lagi.',
-            ])->onlyInput('email');
+            ])->onlyInput('email', 'role');
         }
 
         $request->session()->put(self::TWO_FACTOR_SESSION_KEY, [
@@ -275,6 +285,33 @@ class AuthController extends Controller
 
         return redirect()->route('two-factor.challenge')
             ->with('info', 'Kami sudah mengirim kode verifikasi ke email Anda.');
+    }
+
+    private function completeLogin(Request $request, User $user, bool $remember)
+    {
+        $request->session()->forget(self::TWO_FACTOR_SESSION_KEY);
+
+        $user->forceFill([
+            'two_factor_code' => null,
+            'two_factor_expires_at' => null,
+        ])->save();
+
+        Auth::login($user, $remember);
+        $request->session()->regenerate();
+
+        if ($user->isAdmin()) {
+            return redirect()->route('admin.dashboard')
+                ->with('success', 'Selamat datang, ' . $user->name . '!');
+        }
+
+        return redirect()->route('home')
+            ->with('force_home_after_login', true)
+            ->with('success', 'Selamat datang, ' . $user->name . '!');
+    }
+
+    private function twoFactorEnabled(): bool
+    {
+        return (bool) config('auth.two_factor.enabled', false);
     }
 
     private function issueTwoFactorCode(User $user): void

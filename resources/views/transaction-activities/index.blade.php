@@ -6,9 +6,6 @@
 @section('content')
 <div class="mb-4 d-flex justify-content-between align-items-center">
     <h1 class="h3 mb-0">Transaction Activities</h1>
-    <a href="{{ route('admin.transaction-activities.create') }}" class="btn btn-primary">
-        <i class="bi bi-plus-lg me-1"></i> Add New Activity
-    </a>
 </div>
 
 @if(session('success'))
@@ -21,33 +18,30 @@
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th>ID</th>
+                        <th>Actions</th>
+                        <th>No</th>
                         <th>User</th>
                         <th>Ebook</th>
                         <th>Activity Type</th>
                         <th>Amount</th>
                         <th>Created At</th>
-                        <th class="text-end">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($activities as $activity)
                         <tr>
-                            <td>{{ $activity->id }}</td>
+                            <td>
+                                <a href="{{ route('admin.transaction-activities.show', $activity) }}" class="btn btn-sm btn-outline-secondary me-1">View</a>
+                            </td>
+                            <td>{{ $activities->firstItem() + $loop->index }}</td>
                             <td>{{ $activity->user->name }}</td>
                             <td>{{ $activity->ebook->title }}</td>
                             <td>{{ $activity->activity_type }}</td>
-                            <td>{{ $activity->amount ? '$' . number_format($activity->amount, 2) : 'N/A' }}</td>
-                            <td>{{ $activity->created_at->format('Y-m-d H:i') }}</td>
-                            <td class="text-end">
-                                <a href="{{ route('admin.transaction-activities.show', $activity) }}" class="btn btn-sm btn-outline-secondary me-1">View</a>
-                                <a href="{{ route('admin.transaction-activities.edit', $activity) }}" class="btn btn-sm btn-outline-primary me-1">Edit</a>
-                                <form action="{{ route('admin.transaction-activities.destroy', $activity) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Yakin ingin menghapus aktivitas ini?')">Delete</button>
-                                </form>
+                            <td>
+                                @php($amount = $activity->amount ?? $activity->ebook?->price)
+                                {{ $amount !== null ? 'Rp ' . number_format($amount, 0, ',', '.') : 'N/A' }}
                             </td>
+                            <td>{{ $activity->created_at->format('Y-m-d H:i') }}</td>
                         </tr>
                     @empty
                         <tr>

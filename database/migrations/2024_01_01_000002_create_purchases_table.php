@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('ebook_id')->constrained()->onDelete('cascade');
             $table->string('payment_proof')->nullable();
-            $table->enum('payment_status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('payment_status', ['pending', 'approved', 'rejected'])->default('approved');
             $table->decimal('amount', 10, 2);
             $table->text('notes')->nullable();
             $table->timestamps();

@@ -41,6 +41,55 @@
       padding-bottom: 40px;
       -webkit-font-smoothing: antialiased;
     }
+    body.theme-dark {
+      --ink: #e5e7eb;
+      --ink-2: #cbd5e1;
+      --muted: #94a3b8;
+      --muted-2: #64748b;
+      --border: #253244;
+      --surface: #111827;
+      --bg: #07111f;
+      --primary-glow: rgba(96,165,250,0.18);
+      background: var(--bg);
+      color: var(--ink);
+    }
+    body.theme-dark .navbar,
+    body.theme-dark .menu-list,
+    body.theme-dark .modal-box,
+    body.theme-dark .book-card,
+    body.theme-dark .payment-card,
+    body.theme-dark .owned-shell,
+    body.theme-dark .login-box,
+    body.theme-dark .reader-panel {
+      background: rgba(17,24,39,0.96);
+      border-color: var(--border);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+    }
+    body.theme-dark .profile-card,
+    body.theme-dark .hero {
+      background: linear-gradient(135deg, #0f172a, #111827);
+      border-color: var(--border);
+    }
+    body.theme-dark .nav-search-input,
+    body.theme-dark .profile-edit-input,
+    body.theme-dark .modal-other,
+    body.theme-dark .btn-edit-profile,
+    body.theme-dark .profile-edit-cancel,
+    body.theme-dark .menu-icon-wrap {
+      background: #0f172a;
+      border-color: var(--border);
+      color: var(--ink);
+    }
+    body.theme-dark .menu-item { border-bottom-color: var(--border); }
+    body.theme-dark .menu-item:hover,
+    body.theme-dark .menu-item.clickable:hover,
+    body.theme-dark .modal-other:hover {
+      background: #162033;
+    }
+    body.theme-dark .profile-edit-input:focus {
+      background: #111827;
+      border-color: rgba(96,165,250,0.55);
+    }
     button { font-family: inherit; }
     img { display: block; }
 
@@ -872,8 +921,6 @@
       margin-left: 5px;
       font-weight: 700;
     }
-    .sort-row { font-size: 13px; color: var(--muted); margin-bottom: 18px; display: flex; align-items: center; gap: 5px; }
-    .sort-row b { color: var(--ink); cursor: pointer; }
     .rak-list { display: flex; flex-direction: column; gap: 14px; }
     .rak-item {
       background: var(--surface);
@@ -1270,6 +1317,11 @@
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.7), 0 8px 24px rgba(139,107,68,0.08);
       text-align: center;
     }
+    .reader-paper.has-pdf {
+      padding: 18px;
+      background: #f8fafc;
+      border-color: #dbe3ef;
+    }
     .reader-chapter-badge {
       display: inline-flex;
       align-items: center;
@@ -1296,6 +1348,22 @@
       font-size: 17px;
       line-height: 2.05;
       white-space: pre-line;
+    }
+    .reader-pdf-frame {
+      width: 100%;
+      height: calc(100vh - 270px);
+      min-height: 640px;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      background: #1f2937;
+      display: none;
+    }
+    .reader-pdf-actions {
+      display: none;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 14px;
     }
     .reader-progress { margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(14,9,60,0.08); }
     .reader-progress-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
@@ -1328,6 +1396,42 @@
     .reader-btn.secondary { background: var(--surface); color: var(--ink); border: 1.5px solid var(--border); }
     .reader-btn.secondary:hover { border-color: rgba(37,99,235,0.3); color: var(--primary); }
     .reader-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+    body.theme-dark .reader-shell {
+      background: linear-gradient(180deg, #0f172a, #07111f);
+      border: 1px solid #253244;
+      box-shadow: 0 20px 54px rgba(0,0,0,0.34);
+    }
+    body.theme-dark .reader-meta h2 { color: #f8fafc; }
+    body.theme-dark .reader-meta p { color: #94a3b8; }
+    body.theme-dark .reader-paper {
+      background: #0f172a;
+      border-color: #253244;
+      box-shadow: inset 0 0 0 1px rgba(148,163,184,0.06), 0 18px 42px rgba(0,0,0,0.26);
+    }
+    body.theme-dark .reader-paper.has-pdf {
+      background: #020617;
+      border-color: #253244;
+    }
+    body.theme-dark .reader-chapter-badge {
+      background: rgba(96,165,250,0.14);
+      color: #93c5fd;
+    }
+    body.theme-dark .reader-chapter-title { color: #e2e8f0; }
+    body.theme-dark .reader-content { color: #cbd5e1; }
+    body.theme-dark .reader-progress { border-top-color: #253244; }
+    body.theme-dark .reader-progress-track { background: #1e293b; }
+    body.theme-dark .reader-pages { color: #94a3b8; }
+    body.theme-dark .reader-percent { color: #60a5fa; }
+    body.theme-dark .reader-btn.secondary {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-color: #334155;
+    }
+    body.theme-dark .reader-btn.secondary:hover {
+      border-color: rgba(96,165,250,0.45);
+      color: #93c5fd;
+      background: #111c2f;
+    }
 
     /* ─── ACCOUNT PAGE ─── */
     .profile-card {
@@ -2034,6 +2138,87 @@
     .profile-edit-submit { border: none; border-radius: 13px; padding: 12px 18px; background: linear-gradient(135deg, #2563eb, #4f46e5); color: #fff; font-weight: 700; cursor: pointer; font: inherit; display: inline-flex; align-items: center; gap: 8px; }
     .profile-edit-submit:disabled { opacity: 0.65; cursor: wait; }
     .profile-edit-cancel { border: 1.5px solid var(--border); border-radius: 13px; padding: 12px 16px; background: #fff; color: var(--ink-2); font-weight: 700; cursor: pointer; font: inherit; }
+    #profile-edit-modal .modal-box { max-width: 720px; margin: 5vh auto; max-height: 90vh; overflow-y: auto; text-align: left; }
+    #profile-edit-modal .modal-title { text-align: left; }
+    .profile-edit-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .profile-edit-grid .span-2 { grid-column: 1 / -1; }
+    textarea.profile-edit-input { min-height: 92px; resize: vertical; line-height: 1.6; }
+    .profile-bio { color: var(--muted); font-size: 13px; line-height: 1.6; margin-top: 8px; max-width: 520px; }
+    .menu-item.clickable { cursor: pointer; }
+    .menu-item.clickable:hover { background: #f8fafc; }
+    .menu-copy { display: block; color: var(--muted); font-size: 12px; font-weight: 500; margin-top: 4px; }
+    .account-modal-box {
+      max-width: 560px;
+      margin: 6vh auto;
+      text-align: left;
+      max-height: 88vh;
+      overflow-y: auto;
+      scrollbar-gutter: stable;
+    }
+    .account-modal-box .modal-title {
+      position: sticky;
+      top: -28px;
+      z-index: 1;
+      background: var(--surface);
+      padding-top: 10px;
+    }
+    .settings-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      background: #f8fafc;
+      margin-bottom: 12px;
+    }
+    .settings-option strong,
+    .info-list strong { color: var(--ink); display: block; margin-bottom: 4px; }
+    .settings-option span,
+    .info-list span { color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .theme-switch {
+      display: inline-flex;
+      padding: 4px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .theme-switch button {
+      border: none;
+      border-radius: 999px;
+      padding: 9px 12px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .theme-switch button.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .info-list { display: grid; gap: 12px; }
+    #help-modal .account-modal-box { max-height: 86vh; }
+    #help-modal .info-list { padding-bottom: 6px; }
+    .info-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      background: #f8fafc;
+    }
+    .info-item i { color: var(--primary); font-size: 22px; margin-top: 1px; }
+    body.theme-dark .settings-option,
+    body.theme-dark .info-item,
+    body.theme-dark .theme-switch { background: #0f172a; }
 
     /* ─── NOTIFICATION TOAST ─── */
     .toast {
@@ -2135,6 +2320,9 @@
       .login-left-overlay { display: none; }
       .fav-heading { font-size: 24px; }
       .fav-title { font-size: 16px; }
+      #profile-edit-modal .modal-box { margin: 3vh auto; padding: 22px; }
+      .profile-edit-grid { grid-template-columns: 1fr; }
+      .profile-edit-avatar { align-items: flex-start; }
     }
   </style>
 </head>
@@ -2269,7 +2457,6 @@
         <i class="ph ph-sparkle"></i>
         Rekomendasi Buku
       </div>
-      <div class="section-see-all">Lihat Semua <i class="ph ph-arrow-right"></i></div>
     </div>
 
     <div class="books-grid" id="home-books-grid">
@@ -2362,7 +2549,7 @@
       <div class="cat-card bg-5" onclick="showCategoryRecommendations('Ekonomi', this)"><span class="cat-icon"><i class="ph ph-currency-dollar"></i></span><p>Ekonomi</p></div>
       <div class="cat-card bg-6" onclick="showCategoryRecommendations('Self Dev', this)"><span class="cat-icon"><i class="ph ph-brain"></i></span><p>Self Dev</p></div>
       <div class="cat-card bg-7" onclick="showCategoryRecommendations('Teknologi', this)"><span class="cat-icon"><i class="ph ph-cpu"></i></span><p>Teknologi</p></div>
-      <div class="cat-card bg-8" onclick="showCategoryRecommendations('Kesehatan', this)"><span class="cat-icon"><i class="ph ph-heart-pulse"></i></span><p>Kesehatan</p></div>
+      <div class="cat-card bg-8" onclick="showCategoryRecommendations('Kesehatan', this)"><span class="cat-icon"><i class="ph ph-first-aid-kit"></i></span><p>Kesehatan</p></div>
     </div>
     <div class="category-recommendations">
       <div class="category-rec-head">
@@ -2410,17 +2597,10 @@
   <div id="rak-page" class="page">
     <div class="page-header">
       <div class="page-heading">Rak Buku</div>
-      <div class="page-actions">
-        <div class="icon-btn"><i class="ph ph-bell"></i></div>
-        <div class="icon-btn"><i class="ph ph-magnifying-glass"></i></div>
-        <img src="{{ Auth::check() ? Auth::user()->avatar_url : 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&s=200' }}" alt="Foto profil" class="avatar-sm profile-img" data-user-avatar>
-      </div>
     </div>
     <div class="rak-tabs">
-      <button class="rak-tab">Disimpan</button>
       <button class="rak-tab active-tab">Sedang Dibaca <span class="tab-count">2</span></button>
     </div>
-    <div class="sort-row"><i class="ph ph-funnel"></i> Urutkan: <b>Terbaru ▾</b></div>
     <div class="rak-list" id="rak-list">
       <div class="rak-item" onclick="openRackBook('laut-bercerita', 1)">
         <img src="{{ asset('laut-bercerita.jpeg') }}" class="rak-img">
@@ -2430,7 +2610,6 @@
           <div class="progress-text"><b>40%</b> · 128 / 320 halaman</div>
           <div class="progress-track"><div class="progress-fill" style="width:40%"></div></div>
         </div>
-        <button class="bookmark-btn"><i class="ph-fill ph-bookmark-simple"></i></button>
       </div>
       <div class="rak-item" onclick="openRackBook('mindset', 0)">
         <img src="{{ asset('mindset.jpeg') }}" class="rak-img">
@@ -2440,12 +2619,8 @@
           <div class="progress-text"><b>20%</b> · 74 / 368 halaman</div>
           <div class="progress-track"><div class="progress-fill" style="width:20%"></div></div>
         </div>
-        <button class="bookmark-btn"><i class="ph-fill ph-bookmark-simple"></i></button>
       </div>
     </div>
-    <center style="margin-top:24px;">
-      <button class="btn-see-all"><i class="ph ph-list"></i> Lihat semua</button>
-    </center>
   </div>
 
   <!-- ══════════════ DETAIL PAGE ══════════════ -->
@@ -2670,7 +2845,11 @@
         <span class="reader-chapter-badge"><i class="ph ph-bookmark-simple"></i> <span id="reader-chapter-label">Bab 1</span></span>
         <span class="reader-chapter-title" id="reader-chapter-title">Awal Cerita</span>
         <div class="reader-content" id="reader-book-content"></div>
-        <div class="reader-progress">
+        <iframe class="reader-pdf-frame" id="reader-pdf-frame" title="PDF Ebook"></iframe>
+        <div class="reader-pdf-actions" id="reader-pdf-actions">
+          <a class="reader-btn secondary" id="reader-pdf-open-link" href="#" target="_blank" rel="noopener"><i class="ph ph-arrow-square-out"></i> Buka PDF</a>
+        </div>
+        <div class="reader-progress" id="reader-progress-box">
           <div class="reader-progress-row">
             <span class="reader-percent" id="reader-percentage-progress">40%</span>
             <div class="reader-progress-track"><div class="reader-progress-fill" id="reader-progress-fill"></div></div>
@@ -2725,13 +2904,19 @@
             <div class="profile-name">{{ Auth::user()->name ?? 'Amanda' }}</div>
             <div class="profile-email">{{ Auth::user()->email ?? 'amanda@gmail.com' }}</div>
             <div class="profile-badge"><i class="ph ph-crown-simple"></i> {{ Auth::check() && Auth::user()->isAdmin() ? 'Admin' : 'Member Aktif' }}</div>
+            <div class="profile-bio" data-user-bio>{{ Auth::user()->bio ?? 'Lengkapi bio agar profil akun lebih personal.' }}</div>
           </div>
         </div>
         <button class="btn-edit-profile" type="button" onclick="openProfileEditModal()"><i class="ph ph-pencil-simple"></i> Edit Profil</button>
       </div>
       <div class="menu-list">
-        <div class="menu-item" onclick="showPage('account-page')">
-          <div class="menu-left"><div class="menu-icon-wrap"><i class="ph ph-user"></i></div> Data Akun</div>
+        <div class="menu-item clickable" onclick="openProfileEditModal()">
+          <div class="menu-left">
+            <div class="menu-icon-wrap"><i class="ph ph-user"></i></div>
+            <div>
+              Data Akun
+            </div>
+          </div>
           <i class="ph ph-caret-right menu-arrow"></i>
         </div>
         <div class="menu-item" onclick="showPage('rak-page')">
@@ -2743,16 +2928,31 @@
           <span class="badge-count">4</span>
           <i class="ph ph-caret-right menu-arrow"></i>
         </div>
-        <div class="menu-item">
-          <div class="menu-left"><div class="menu-icon-wrap"><i class="ph ph-gear"></i></div> Pengaturan</div>
+        <div class="menu-item clickable" onclick="openAccountModal('settings-modal')">
+          <div class="menu-left">
+            <div class="menu-icon-wrap"><i class="ph ph-gear"></i></div>
+            <div>
+              Pengaturan
+            </div>
+          </div>
           <i class="ph ph-caret-right menu-arrow"></i>
         </div>
-        <div class="menu-item">
-          <div class="menu-left"><div class="menu-icon-wrap"><i class="ph ph-question"></i></div> Bantuan</div>
+        <div class="menu-item clickable" onclick="openAccountModal('help-modal')">
+          <div class="menu-left">
+            <div class="menu-icon-wrap"><i class="ph ph-question"></i></div>
+            <div>
+              Bantuan
+            </div>
+          </div>
           <i class="ph ph-caret-right menu-arrow"></i>
         </div>
-        <div class="menu-item">
-          <div class="menu-left"><div class="menu-icon-wrap"><i class="ph ph-info"></i></div> Tentang Kami</div>
+        <div class="menu-item clickable" onclick="openAccountModal('about-modal')">
+          <div class="menu-left">
+            <div class="menu-icon-wrap"><i class="ph ph-info"></i></div>
+            <div>
+              Tentang Kami
+            </div>
+          </div>
           <i class="ph ph-caret-right menu-arrow"></i>
         </div>
         <div class="menu-item" onclick="logout()">
@@ -2887,17 +3087,17 @@
 
       <div class="transaction-grid">
         <div class="tx-main-stack">
-          <div class="tx-card tx-hero pending" id="tx-hero-card">
+          <div class="tx-card tx-hero" id="tx-hero-card">
             <div class="tx-status-illustration">
-              <i class="ph ph-clock-countdown" id="tx-status-icon"></i>
+              <i class="ph ph-check" id="tx-status-icon"></i>
             </div>
             <div>
               <div class="tx-status-title-row">
                 <div>
-                  <div class="tx-status-title" id="tx-status-title">Menunggu Verifikasi</div>
-                  <p class="tx-status-copy" id="tx-status-copy">Pembayaran Anda sudah masuk dan sedang menunggu verifikasi admin.</p>
+                  <div class="tx-status-title" id="tx-status-title">Pembayaran Berhasil!</div>
+                  <p class="tx-status-copy" id="tx-status-copy">Pembayaran Anda berhasil. E-book sudah tersedia dan siap diunduh.</p>
                 </div>
-                <span class="tx-status-badge" id="tx-status-badge"><i class="ph ph-clock"></i> Pending</span>
+                <span class="tx-status-badge" id="tx-status-badge"><i class="ph ph-check-circle"></i> Berhasil</span>
               </div>
               <div class="tx-meta-line">
                 <div class="tx-meta-item">
@@ -2921,7 +3121,7 @@
                 <div class="tx-book-author" id="tx-book-author">Leila S. Chudori</div>
                 <div class="tx-chip-row">
                   <span class="tx-chip">E-Book</span>
-                  <span class="tx-chip success" id="tx-owned-chip">Menunggu Verifikasi</span>
+                  <span class="tx-chip success" id="tx-owned-chip">Sudah Dibeli</span>
                 </div>
                 <div class="tx-specs">
                   <div class="tx-spec"><i class="ph ph-folder"></i><span>Kategori</span><b id="tx-category">Novel</b></div>
@@ -2944,7 +3144,7 @@
                 </div>
                 <div>
                   <div class="tx-access-title" id="tx-access-title">Laut Bercerita</div>
-                  <div class="tx-access-copy">E-Book (PDF) • <span id="tx-file-size">2.4 MB</span><br><span id="tx-access-copy">E-book siap dibaca setelah pembayaran disetujui admin.</span></div>
+                  <div class="tx-access-copy">E-Book (PDF) • <span id="tx-file-size">2.4 MB</span><br><span id="tx-access-copy">E-book siap dibaca setelah pembayaran berhasil.</span></div>
                 </div>
               </div>
               <div class="tx-button-stack">
@@ -2964,7 +3164,7 @@
           <div class="tx-card">
             <h3>Detail Pembayaran</h3>
             <div class="tx-side-row"><span>Metode Pembayaran</span><strong id="tx-method">QRIS</strong></div>
-            <div class="tx-side-row"><span>Status Pembayaran</span><strong class="tx-side-status pending" id="tx-payment-status"><i class="ph ph-clock"></i> Pending</strong></div>
+            <div class="tx-side-row"><span>Status Pembayaran</span><strong class="tx-side-status" id="tx-payment-status"><i class="ph ph-check-circle"></i> Berhasil</strong></div>
             <div class="tx-side-row"><span>Subtotal</span><strong id="tx-subtotal">Rp 59.000</strong></div>
             <div class="tx-side-row"><span>Biaya Layanan</span><strong id="tx-fee">Rp 1.000</strong></div>
             <div class="tx-side-row total"><span>Total Pembayaran</span><strong id="tx-total">Rp 60.000</strong></div>
@@ -3188,7 +3388,7 @@
             <path d="M3.96409 10.71C3.78409 10.17 3.68182 9.5931 3.68182 9.0000C3.68182 8.4068 3.78409 7.8300 3.96409 7.2900V4.9582H0.957273C0.347727 6.1732 0 7.5477 0 9.0000C0 10.4522 0.347727 11.8268 0.957273 13.0418L3.96409 10.71Z" fill="#FBBC05"/>
             <path d="M9 3.5795C10.3214 3.5795 11.5077 4.0336 12.4405 4.9254L15.0218 2.3440C13.4632 0.8918 11.4259 0 9 0C5.48182 0 2.43818 2.0168 0.957275 4.9582L3.96409 7.29C4.67182 5.1627 6.65591 3.5795 9 3.5795Z" fill="#EA4335"/>
           </svg>
-          Google
+          Login dengan Google
         </a>
 
         <div class="login-footer">
@@ -3223,6 +3423,39 @@
         <label class="profile-edit-label" for="profile-name-input">Nama Pengguna</label>
         <input class="profile-edit-input" type="text" id="profile-name-input" name="name" value="{{ Auth::user()->name ?? '' }}" maxlength="255" required>
       </div>
+      <div class="profile-edit-grid">
+        <div>
+          <label class="profile-edit-label" for="profile-phone-input">Nomor Telepon</label>
+          <input class="profile-edit-input" type="tel" id="profile-phone-input" name="phone" value="{{ Auth::user()->phone ?? '' }}" maxlength="30" placeholder="Contoh: 081234567890">
+        </div>
+        <div>
+          <label class="profile-edit-label" for="profile-gender-input">Jenis Kelamin</label>
+          <select class="profile-edit-input" id="profile-gender-input" name="gender">
+            <?php $gender = Auth::user()->gender ?? ''; ?>
+            <option value="">Pilih jenis kelamin</option>
+            <option value="Perempuan" {{ $gender === 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+            <option value="Laki-laki" {{ $gender === 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+            <option value="Lainnya" {{ $gender === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+          </select>
+        </div>
+        <div>
+          <label class="profile-edit-label" for="profile-birth-place-input">Tempat Lahir</label>
+          <input class="profile-edit-input" type="text" id="profile-birth-place-input" name="birth_place" value="{{ Auth::user()->birth_place ?? '' }}" maxlength="120" placeholder="Contoh: Jakarta">
+        </div>
+        <div>
+          <label class="profile-edit-label" for="profile-birth-date-input">Tanggal Lahir</label>
+          <input class="profile-edit-input" type="date" id="profile-birth-date-input" name="birth_date" value="{{ Auth::check() && Auth::user()->birth_date ? Auth::user()->birth_date->format('Y-m-d') : '' }}">
+        </div>
+        <div class="span-2">
+          <label class="profile-edit-label" for="profile-bio-input">Bio</label>
+          <textarea class="profile-edit-input" id="profile-bio-input" name="bio" maxlength="500" placeholder="Tulis bio singkat tentang diri Anda">{{ Auth::user()->bio ?? '' }}</textarea>
+          <div class="profile-edit-help">Maksimal 500 karakter.</div>
+        </div>
+        <div class="span-2">
+          <label class="profile-edit-label" for="profile-address-input">Alamat</label>
+          <textarea class="profile-edit-input" id="profile-address-input" name="address" maxlength="500" placeholder="Alamat domisili">{{ Auth::user()->address ?? '' }}</textarea>
+        </div>
+      </div>
       <div class="profile-edit-error" id="profile-edit-error"></div>
       <div class="profile-edit-actions">
         <button type="button" class="profile-edit-cancel" onclick="closeProfileEditModal()">Batal</button>
@@ -3232,16 +3465,102 @@
   </div>
 </div>
 
+<!-- SETTINGS MODAL -->
+<div class="modal" id="settings-modal">
+  <div class="modal-box account-modal-box">
+    <button type="button" class="modal-close" onclick="closeAccountModal('settings-modal')">&times;</button>
+    <h3 class="modal-title">Pengaturan</h3>
+    <div class="settings-option">
+      <div>
+        <strong>Mode Tampilan</strong>
+        <span>Pilih tema terang untuk tampilan bersih atau tema gelap untuk membaca lebih nyaman di ruangan redup.</span>
+      </div>
+      <div class="theme-switch" role="group" aria-label="Mode tampilan">
+        <button type="button" id="theme-light-btn" onclick="confirmThemeMode('light')"><i class="ph ph-sun"></i> Terang</button>
+        <button type="button" id="theme-dark-btn" onclick="confirmThemeMode('dark')"><i class="ph ph-moon"></i> Gelap</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HELP MODAL -->
+<div class="modal" id="help-modal">
+  <div class="modal-box account-modal-box">
+    <button type="button" class="modal-close" onclick="closeAccountModal('help-modal')">&times;</button>
+    <h3 class="modal-title">Bantuan</h3>
+    <div class="info-list">
+      <div class="info-item">
+        <i class="ph ph-user-circle"></i>
+        <div><strong>Mengubah data akun</strong><span>Buka Data Akun atau Edit Profil untuk memperbarui nama, foto, bio, dan data diri.</span></div>
+      </div>
+      <div class="info-item">
+        <i class="ph ph-books"></i>
+        <div><strong>Membaca buku</strong><span>Buku yang sudah dibeli atau gratis akan muncul di Rak Buku dan bisa dibuka dari sana.</span></div>
+      </div>
+      <div class="info-item">
+        <i class="ph ph-heart"></i>
+        <div><strong>Menyimpan favorit</strong><span>Tekan ikon hati pada buku untuk menyimpannya ke daftar favorit akun Anda.</span></div>
+      </div>
+      <div class="info-item">
+        <i class="ph ph-envelope-simple"></i>
+        <div><strong>Butuh bantuan lain?</strong><span>Hubungi admin perpustakaan digital melalui email akun yang terdaftar.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT MODAL -->
+<div class="modal" id="about-modal">
+  <div class="modal-box account-modal-box">
+    <button type="button" class="modal-close" onclick="closeAccountModal('about-modal')">&times;</button>
+    <h3 class="modal-title">Tentang Kami</h3>
+    <div class="info-list">
+      <div class="info-item">
+        <i class="ph ph-books"></i>
+        <div><strong>EBook</strong><span>EBook adalah aplikasi perpustakaan digital untuk menemukan, menyimpan, membeli, dan membaca buku secara praktis.</span></div>
+      </div>
+      <div class="info-item">
+        <i class="ph ph-target"></i>
+        <div><strong>Tujuan</strong><span>Kami membantu pembaca mengakses koleksi buku dengan pengalaman yang rapi, cepat, dan mudah digunakan.</span></div>
+      </div>
+      <div class="info-item">
+        <i class="ph ph-shield-check"></i>
+        <div><strong>Akun dan transaksi</strong><span>Data akun dipakai untuk menyimpan rak buku, favorit, profil, dan riwayat pembelian Anda.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<?php
+  $authenticatedProfileData = Auth::check() ? [
+    'name' => Auth::user()->name,
+    'email' => Auth::user()->email,
+    'photoUrl' => Auth::user()->avatar_url,
+    'phone' => Auth::user()->phone,
+    'gender' => Auth::user()->gender,
+    'birthPlace' => Auth::user()->birth_place,
+    'birthDate' => Auth::user()->birth_date ? Auth::user()->birth_date->format('Y-m-d') : null,
+    'bio' => Auth::user()->bio,
+    'address' => Auth::user()->address,
+  ] : null;
+  $publishedEbookData = $publishedEbooks ?? collect();
+?>
+
 <script>
   let isLoggedIn = @json(Auth::check());
-  const authenticatedProfile = @json(Auth::check() ? ['name' => Auth::user()->name, 'email' => Auth::user()->email, 'photoUrl' => Auth::user()->avatar_url] : null);
+  const authenticatedProfile = @json($authenticatedProfileData);
+  const publishedEbooksFromDatabase = @json($publishedEbookData);
   let pendingRedirectPage = 'payment-page';
   let selectedPaymentMethod = 'qris';
   let selectedVABank = 'BCA';
   let selectedWallet = 'GoPay';
+  const savedThemeMode = localStorage.getItem('ebook-theme-mode') || 'light';
+  const forceHomeAfterLogin = @json((bool) session('force_home_after_login'));
+  const lastTransactionStorageKey = 'ebook-last-transaction';
+  const lastPageStorageKey = 'ebook-last-page';
 
   const vaNumbers = { BCA:'8808123456789012', Mandiri:'7000812345678901', BNI:'9881123456789012', BRI:'2621512345678901' };
 
@@ -3272,11 +3591,38 @@
   const homeBooks = {
     'laut-bercerita':{title:'Laut Bercerita',author:'Leila S. Chudori',cover:'{{ asset("laut-bercerita.jpeg") }}',price:'Rp 59.000',description:'Laut Bercerita adalah novel yang mengisahkan perjuangan, kehilangan dan harapan dimasa penuh gejolak.'},
     'atomic-habits':{title:'Atomic Habits',author:'James Clear',cover:'https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg',price:'Gratis',isFree:true,description:'Atomic Habits menjelaskan bagaimana perubahan kecil yang konsisten dapat membentuk hasil besar.'},
-    'sapiens':{title:'Sapiens',author:'Yuval Noah Harari',cover:'https://images-na.ssl-images-amazon.com/images/I/713jIoMO3UL.jpg',price:'Rp 135.000',description:'Sapiens membahas evolusi manusia dari masa purba hingga modern.'},
     'psychology-of-money':{title:'Psychology of Money',author:'Morgan Housel',cover:'https://images-na.ssl-images-amazon.com/images/I/71g2ednj0JL.jpg',price:'Gratis',isFree:true,description:'Psychology of Money mengeksplorasi bagaimana orang berpikir tentang uang.'},
+    'mindset':{title:'Mindset',author:'Carol S. Dweck',cover:'{{ asset("mindset.jpeg") }}',price:'Gratis',isFree:true,description:'Mindset menjelaskan perbedaan antara fixed mindset dan growth mindset.'},
     'clean-code':{title:'Clean Code',author:'Robert C. Martin',cover:'https://images-na.ssl-images-amazon.com/images/I/41SH-SvWPxL.jpg',price:'Rp 120.000',description:'Clean Code adalah panduan praktis untuk menulis kode yang bersih dan mudah dipelihara.'},
-    'mindset':{title:'Mindset',author:'Carol S. Dweck',cover:'{{ asset("mindset.jpeg") }}',price:'Gratis',isFree:true,description:'Mindset menjelaskan perbedaan antara fixed mindset dan growth mindset.'}
+    'sapiens':{title:'Sapiens',author:'Yuval Noah Harari',cover:'https://images-na.ssl-images-amazon.com/images/I/713jIoMO3UL.jpg',price:'Rp 135.000',description:'Sapiens membahas evolusi manusia dari masa purba hingga modern.'}
   };
+
+  function formatBookPrice(value) {
+    const amount = Number(value || 0);
+    if(amount <= 0) return 'Gratis';
+    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(amount);
+  }
+
+  if(publishedEbooksFromDatabase.length) {
+    Object.keys(homeBooks).forEach(id => delete homeBooks[id]);
+  }
+
+  publishedEbooksFromDatabase.forEach(book => {
+    homeBooks[book.id] = {
+      title: book.title,
+      author: book.author,
+      cover: book.cover,
+      price: formatBookPrice(book.price),
+      isFree: Boolean(book.isFree),
+      description: book.description,
+      pdfUrl: book.pdfUrl,
+      category: book.category,
+      tags: [book.category],
+      rating: '4.8',
+      reviewCount: '0',
+      readers: 'Baru ditambahkan',
+    };
+  });
 
   const recommendedBooks = {
     'dune':{title:'Dune',author:'Frank Herbert',cover:'https://images-na.ssl-images-amazon.com/images/I/91uwocAMtSL.jpg',price:'Rp 118.000',description:'Kisah epik di gurun Arrakis.'},
@@ -3316,7 +3662,25 @@
     'Self Dev': ['ikigai', 'thinking-fast-slow', 'mindset', 'atomic-habits'],
     'Teknologi': ['clean-code', 'clean-architecture', 'javascript-good-parts', 'python-crash-course'],
     'Kesehatan': ['breath', 'why-we-sleep', 'the-body-keeps-score', 'outlive'],
+    'Pendidikan': ['atomic-habits', 'mindset', 'thinking-fast-slow', 'deep-work'],
   };
+
+  if(publishedEbooksFromDatabase.length) {
+    Object.keys(categoryRecommendations).forEach(category => {
+      categoryRecommendations[category] = [];
+    });
+  }
+
+  publishedEbooksFromDatabase.forEach(book => {
+    if(!categoryRecommendations[book.category]) categoryRecommendations[book.category] = [];
+    if(!categoryRecommendations[book.category].includes(book.id)) {
+      categoryRecommendations[book.category].unshift(book.id);
+    }
+  });
+
+  if(!categoryRecommendations['Pendidikan'] || !categoryRecommendations['Pendidikan'].length) {
+    categoryRecommendations['Pendidikan'] = ['atomic-habits', 'mindset', 'thinking-fast-slow', 'deep-work'];
+  }
 
   let activeRecommendationCategory = 'Fiksi';
   let activeCategoryRecommendationSearch = '';
@@ -3355,8 +3719,14 @@
   let currentReaderAnchorPage = 0;
   let readerReturnPage = 'owned-book-page';
   let isSubmittingPayment = false;
-  const initialPurchasedIds = @json(Auth::check() ? Auth::user()->approvedPurchases()->with('ebook')->get()->pluck('ebook.slug')->filter()->values() : []);
+  const initialPurchasedIds = @json(Auth::check() ? Auth::user()->purchases()->with('ebook')->get()->pluck('ebook.slug')->filter()->values() : []);
   const purchasedBooks = new Set(initialPurchasedIds);
+  const purchaseStatuses = @json(Auth::check()
+    ? Auth::user()->purchases()->with('ebook')->latest()->get()
+        ->filter(fn ($purchase) => $purchase->ebook)
+        ->unique('ebook_id')
+        ->mapWithKeys(fn ($purchase) => [$purchase->ebook->slug => 'approved'])
+    : []);
   const initialFavoriteIds = @json(Auth::check() ? Auth::user()->favoriteEbooks()->pluck('slug')->values() : []);
   const favoriteBooks = new Set(initialFavoriteIds);
 
@@ -3370,6 +3740,42 @@
   }
   function getSelectedPaymentLabel() {
     return selectedPaymentMethod === 'va' ? `${selectedVABank} Virtual Account` : `QRIS ${selectedWallet}`;
+  }
+  function saveLastTransaction(bookId, transaction) {
+    if(!bookId || !transaction) return;
+    localStorage.setItem(lastTransactionStorageKey, JSON.stringify({
+      bookId,
+      transaction,
+      savedAt: new Date().toISOString(),
+    }));
+  }
+  function getLastTransaction() {
+    try {
+      return JSON.parse(localStorage.getItem(lastTransactionStorageKey) || 'null');
+    } catch (error) {
+      localStorage.removeItem(lastTransactionStorageKey);
+      return null;
+    }
+  }
+  function clearLastTransaction() {
+    localStorage.removeItem(lastTransactionStorageKey);
+  }
+  function saveLastPage(pageId) {
+    if(!pageId) return;
+    localStorage.setItem(lastPageStorageKey, JSON.stringify({
+      pageId,
+      bookId: currentBookId,
+      readerPage: currentReaderPage,
+      savedAt: new Date().toISOString(),
+    }));
+  }
+  function getLastPage() {
+    try {
+      return JSON.parse(localStorage.getItem(lastPageStorageKey) || 'null');
+    } catch (error) {
+      localStorage.removeItem(lastPageStorageKey);
+      return null;
+    }
   }
   function fallbackCover(title, author='EBook') {
     const safeTitle = String(title || 'EBook').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -3398,6 +3804,24 @@
     return {...base,...(bookDetails[id]||{})};
   }
   function isBookFree(book) { return Boolean(book && book.isFree); }
+  function getPurchaseStatus(bookId = currentBookId) {
+    return purchaseStatuses[bookId] || null;
+  }
+  function setPurchaseStatus(bookId, status) {
+    if(bookId && status) purchaseStatuses[bookId] = 'approved';
+  }
+  function isPaymentRejected(bookId = currentBookId) {
+    return false;
+  }
+  function isPaymentPending(bookId = currentBookId) {
+    return false;
+  }
+  function showRejectedPaymentNotice() {
+    showToast('Pembayaran berhasil. E-book sudah bisa dibaca.', 'ph-check-circle');
+  }
+  function showPendingPaymentNotice() {
+    showToast('Pembayaran berhasil. E-book sudah bisa dibaca.', 'ph-check-circle');
+  }
 
   function setCurrentBook(id, book) {
     if(!book) return;
@@ -3419,6 +3843,46 @@
 
   // ─── UPDATE FUNCTIONS ───
   function updateReaderPage() {
+    const hasPdf = Boolean(currentBook && currentBook.pdfUrl);
+    const content = document.getElementById('reader-book-content');
+    const pdfFrame = document.getElementById('reader-pdf-frame');
+    const pdfActions = document.getElementById('reader-pdf-actions');
+    const pdfOpenLink = document.getElementById('reader-pdf-open-link');
+    const progressBox = document.getElementById('reader-progress-box');
+    const prevBtn = document.getElementById('reader-prev-btn');
+    const nextBtn = document.getElementById('reader-next-btn');
+    const readerPaper = document.querySelector('#reader-page .reader-paper');
+    const chapterBadge = document.querySelector('#reader-page .reader-chapter-badge');
+    const chapterTitle = document.getElementById('reader-chapter-title');
+
+    document.getElementById('reader-book-title').textContent = currentBook.title;
+    document.getElementById('reader-book-author').textContent = currentBook.author;
+
+    if(hasPdf) {
+      readerPaper.classList.add('has-pdf');
+      if(chapterBadge) chapterBadge.style.display = 'none';
+      chapterTitle.style.display = 'none';
+      content.style.display = 'none';
+      pdfFrame.style.display = 'block';
+      pdfActions.style.display = 'flex';
+      progressBox.style.display = 'none';
+      pdfFrame.src = `${currentBook.pdfUrl}#view=FitH&toolbar=1&navpanes=0`;
+      pdfOpenLink.href = currentBook.pdfUrl;
+      document.getElementById('reader-chapter-label').textContent = 'PDF';
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
+
+    readerPaper.classList.remove('has-pdf');
+    if(chapterBadge) chapterBadge.style.display = '';
+    chapterTitle.style.display = '';
+    content.style.display = '';
+    pdfFrame.style.display = 'none';
+    pdfActions.style.display = 'none';
+    progressBox.style.display = '';
+    if(pdfFrame.src) pdfFrame.removeAttribute('src');
+
     const pages = createReaderPages(currentBook);
     const total = pages.length;
     const pn = currentReaderPage + 1;
@@ -3428,16 +3892,14 @@
     const disp = Math.min(totalPg, Math.max(1, base + ((currentReaderPage - currentReaderAnchorPage) * step)));
     const pct = Math.min(100, Math.round((disp/totalPg)*100));
 
-    document.getElementById('reader-book-title').textContent = currentBook.title;
-    document.getElementById('reader-book-author').textContent = currentBook.author;
     document.getElementById('reader-progress-fill').style.width = `${pct}%`;
     document.getElementById('reader-percentage-progress').textContent = `${pct}%`;
     document.getElementById('reader-page-progress').textContent = `${formatPage(disp)} / ${formatPage(totalPg)} halaman`;
     document.getElementById('reader-chapter-label').textContent = `Bab ${pn}`;
     document.getElementById('reader-chapter-title').textContent = getChapterTitle(currentBookId, currentReaderPage);
-    document.getElementById('reader-book-content').textContent = pages[currentReaderPage];
-    document.getElementById('reader-prev-btn').disabled = currentReaderPage === 0;
-    document.getElementById('reader-next-btn').disabled = currentReaderPage === total - 1;
+    content.textContent = pages[currentReaderPage];
+    prevBtn.disabled = currentReaderPage === 0;
+    nextBtn.disabled = currentReaderPage === total - 1;
   }
 
   function updateDetailPage(book) {
@@ -3541,8 +4003,6 @@
   }
 
   function updateTransactionDetailPage(book, transaction={}) {
-    const status = transaction.status || 'pending';
-    const isApproved = status === 'approved';
     const createdAt = transaction.created_at || new Date().toISOString();
     const dateText = transaction.formatted_created_at || formatTransactionDate(createdAt);
     const subtotal = isBookFree(book) ? 0 : parseRupiah(book.price);
@@ -3551,13 +4011,11 @@
     const method = transaction.payment_method || getSelectedPaymentLabel();
 
     const hero = document.getElementById('tx-hero-card');
-    hero.classList.toggle('pending', !isApproved);
-    document.getElementById('tx-status-icon').className = isApproved ? 'ph ph-check' : 'ph ph-clock-countdown';
-    document.getElementById('tx-status-title').textContent = isApproved ? 'Pembayaran Berhasil!' : 'Menunggu Verifikasi';
-    document.getElementById('tx-status-copy').textContent = isApproved
-      ? 'Terima kasih! Pembayaran Anda telah berhasil diverifikasi. E-book sudah tersedia dan siap diunduh.'
-      : 'Pembayaran Anda sudah masuk. Admin akan memverifikasi pembayaran sebelum akses penuh dibuka.';
-    document.getElementById('tx-status-badge').innerHTML = isApproved ? '<i class="ph ph-check-circle"></i> Berhasil' : '<i class="ph ph-clock"></i> Pending';
+    hero.classList.remove('pending');
+    document.getElementById('tx-status-icon').className = 'ph ph-check';
+    document.getElementById('tx-status-title').textContent = 'Pembayaran Berhasil!';
+    document.getElementById('tx-status-copy').textContent = 'Terima kasih! Pembayaran Anda berhasil. E-book sudah tersedia dan siap diunduh.';
+    document.getElementById('tx-status-badge').innerHTML = '<i class="ph ph-check-circle"></i> Berhasil';
     document.getElementById('tx-id').textContent = transaction.transaction_id || 'TRX-' + new Date().toISOString().slice(0,10).replaceAll('-','') + '-001';
     document.getElementById('tx-date').textContent = dateText;
 
@@ -3567,31 +4025,29 @@
     document.getElementById('tx-access-cover').alt = book.title;
     document.getElementById('tx-book-title').textContent = book.title;
     document.getElementById('tx-book-author').textContent = book.author;
-    document.getElementById('tx-owned-chip').textContent = isApproved ? 'Sudah Dibeli' : 'Menunggu Verifikasi';
+    document.getElementById('tx-owned-chip').textContent = 'Sudah Dibeli';
     document.getElementById('tx-category').textContent = (book.tags && book.tags.length ? book.tags.join(' / ') : (book.category || 'E-Book'));
     document.getElementById('tx-language').textContent = book.language || 'Indonesia';
     document.getElementById('tx-publisher').textContent = book.publisher || '-';
     document.getElementById('tx-price').textContent = formatRupiah(subtotal);
     document.getElementById('tx-access-title').textContent = book.title;
-    document.getElementById('tx-access-copy').textContent = isApproved
-      ? 'E-book ini sudah menjadi milik Anda dan dapat diunduh atau dibaca kapan saja.'
-      : 'E-book siap dibuka setelah pembayaran disetujui admin.';
+    document.getElementById('tx-access-copy').textContent = 'E-book ini sudah menjadi milik Anda dan dapat diunduh atau dibaca kapan saja.';
 
     document.getElementById('tx-method').textContent = method;
     const paymentStatus = document.getElementById('tx-payment-status');
-    paymentStatus.classList.toggle('pending', !isApproved);
-    paymentStatus.innerHTML = isApproved ? '<i class="ph ph-check-circle"></i> Berhasil' : '<i class="ph ph-clock"></i> Pending';
+    paymentStatus.classList.remove('pending');
+    paymentStatus.innerHTML = '<i class="ph ph-check-circle"></i> Berhasil';
     document.getElementById('tx-subtotal').textContent = formatRupiah(subtotal);
     document.getElementById('tx-fee').textContent = formatRupiah(fee);
     document.getElementById('tx-total').textContent = formatRupiah(total);
     document.getElementById('tx-paid-at').textContent = dateText;
-    document.getElementById('tx-verification').textContent = isApproved ? 'Selesai' : 'Menunggu Admin';
+    document.getElementById('tx-verification').textContent = 'Selesai';
 
     document.getElementById('tx-timeline').innerHTML = [
       ['ph-check', 'Pesanan dibuat', 'Pesanan Anda telah dibuat', dateText, false],
-      ['ph-check', 'Menunggu pembayaran', 'Menunggu konfirmasi pembayaran', dateText, false],
+      ['ph-check', 'Pembayaran diproses', 'Konfirmasi pembayaran diterima', dateText, false],
       ['ph-check', 'Pembayaran diterima', 'Pembayaran Anda telah kami terima', dateText, false],
-      [isApproved ? 'ph-check' : 'ph-clock', isApproved ? 'Transaksi berhasil' : 'Menunggu verifikasi', isApproved ? 'Transaksi selesai, e-book siap digunakan' : 'Admin akan memeriksa pembayaran Anda', isApproved ? dateText : 'Dalam proses', !isApproved],
+      ['ph-check', 'Transaksi berhasil', 'Transaksi selesai, e-book siap digunakan', dateText, false],
     ].map(step => `
       <div class="tx-step ${step[4] ? 'pending' : ''}">
         <div class="tx-step-icon"><i class="ph ${step[0]}"></i></div>
@@ -3602,8 +4058,90 @@
   }
 
   // ─── NAVIGATION ───
+  async function refreshTransactionStatus(bookId, fallbackTransaction={}) {
+    const book = getBookById(bookId);
+    if(!book || !isLoggedIn) return fallbackTransaction;
+
+    try {
+      const response = await fetch(`{{ url('/purchase') }}/${bookId}/status`, {
+        headers: { 'Accept': 'application/json' },
+      });
+
+      if(!response.ok) {
+        if(response.status === 404) clearLastTransaction();
+        return fallbackTransaction;
+      }
+
+      const latestTransaction = await response.json();
+      const mergedTransaction = {
+        ...fallbackTransaction,
+        ...latestTransaction,
+        payment_method: latestTransaction.payment_method || fallbackTransaction.payment_method || getSelectedPaymentLabel(),
+      };
+
+      if(mergedTransaction.status === 'approved') {
+        purchasedBooks.add(bookId);
+        renderRackBooks();
+      }
+      setPurchaseStatus(bookId, mergedTransaction.status);
+
+      updateOwnedBookPage(book);
+      updateTransactionDetailPage(book, mergedTransaction);
+      saveLastTransaction(bookId, mergedTransaction);
+      return mergedTransaction;
+    } catch (error) {
+      return fallbackTransaction;
+    }
+  }
+
+  function restoreLastTransactionPage() {
+    const saved = getLastTransaction();
+    if(!isLoggedIn || !saved || !saved.bookId) return false;
+
+    const book = getBookById(saved.bookId);
+    if(!book) {
+      clearLastTransaction();
+      return false;
+    }
+
+    setCurrentBook(saved.bookId, book);
+    updateOwnedBookPage(book);
+    showPage('owned-book-page');
+    refreshTransactionStatus(saved.bookId, saved.transaction || {});
+    return true;
+  }
+
+  function restoreLastOpenedPage() {
+    const savedPage = getLastPage();
+    if(!savedPage || !savedPage.pageId) return false;
+
+    if(savedPage.bookId) {
+      const book = getBookById(savedPage.bookId);
+      if(book) {
+        setCurrentBook(savedPage.bookId, book);
+      }
+    }
+
+    if(savedPage.pageId === 'transaction-detail-page') {
+      return restoreLastTransactionPage();
+    }
+
+    if(savedPage.pageId === 'reader-page') {
+      currentReaderPage = Math.max(0, Number(savedPage.readerPage || 0));
+      currentReaderAnchorPage = currentReaderPage;
+      updateReaderPage();
+    }
+
+    showPage(savedPage.pageId);
+    return true;
+  }
+
   function saveFavoriteBooks() {
     return true;
+  }
+
+  function confirmAction(message) {
+    return window.confirm(message);
   }
 
   async function persistFavoriteBook(bookId, shouldAdd) {
@@ -3683,6 +4221,8 @@
       return;
     }
 
+    if(!confirmAction('Tambahkan buku ini ke favorit?')) return;
+
     favoriteBooks.add(bookId);
     renderFavoriteBooks();
     updateDetailFavoriteButton();
@@ -3700,6 +4240,8 @@
 
   async function removeFavoriteBook(bookId, event=null) {
     if(event) event.stopPropagation();
+    if(!confirmAction('Hapus buku ini dari favorit?')) return;
+
     favoriteBooks.delete(bookId);
     renderFavoriteBooks();
     updateDetailFavoriteButton();
@@ -3767,7 +4309,6 @@
             <div class="progress-text"><b>${percent}%</b> · ${formatPage(currentPage)} / ${formatPage(totalPages)} halaman</div>
             <div class="progress-track"><div class="progress-fill" style="width:${percent}%"></div></div>
           </div>
-          <button class="bookmark-btn" type="button" onclick="event.stopPropagation(); openRackBook('${id}', ${index % 2})"><i class="ph-fill ph-bookmark-simple"></i></button>
         </div>
       `;
     }).join('');
@@ -3777,6 +4318,7 @@
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     const t = document.getElementById(pageId);
     if(t){ t.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
+    saveLastPage(pageId);
     document.querySelectorAll('.nav-item').forEach(n=>{
       n.classList.remove('active-nav');
       if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes(pageId)) n.classList.add('active-nav');
@@ -3841,6 +4383,14 @@
 
   function handleReadBook() {
     if(!currentBook) return;
+    if(!isBookFree(currentBook) && isPaymentRejected()) {
+      showRejectedPaymentNotice();
+      return;
+    }
+    if(!isBookFree(currentBook) && isPaymentPending()) {
+      showPendingPaymentNotice();
+      return;
+    }
     if(!isBookFree(currentBook) && !purchasedBooks.has(currentBookId)) {
       showToast('Buku ini perlu dibeli terlebih dahulu.', 'ph-warning');
       showPage('payment-page');
@@ -3856,6 +4406,14 @@
   }
 
   function openReaderCurrentBook() {
+    if(!isBookFree(currentBook) && isPaymentRejected()) {
+      showRejectedPaymentNotice();
+      return;
+    }
+    if(!isBookFree(currentBook) && isPaymentPending()) {
+      showPendingPaymentNotice();
+      return;
+    }
     if(!isBookFree(currentBook) && !purchasedBooks.has(currentBookId)){
       showToast('Buku ini perlu dibeli terlebih dahulu.', 'ph-warning');
       showPage('payment-page'); return;
@@ -3869,6 +4427,7 @@
   function leaveReader() { showPage(readerReturnPage); }
 
   function changeReaderPage(step) {
+    if(currentBook && currentBook.pdfUrl) return;
     const pages = createReaderPages(currentBook);
     const next = currentReaderPage + step;
     if(next < 0 || next >= pages.length) return;
@@ -3958,6 +4517,7 @@
     }
 
     if(isSubmittingPayment) return;
+    if(!confirmAction('Selesaikan pembayaran ini sekarang?')) return;
 
     const payButton = document.querySelector('.btn-pay');
     const originalButtonHtml = payButton ? payButton.innerHTML : '';
@@ -3990,10 +4550,11 @@
         purchasedBooks.add(currentBookId);
         renderRackBooks();
       }
+      setPurchaseStatus(currentBookId, result.status);
+      saveLastTransaction(currentBookId, result);
       updateOwnedBookPage(currentBook);
-      updateTransactionDetailPage(currentBook, result);
-      showToast(result.message || 'Pembayaran masuk ke admin!', 'ph-check-circle');
-      setTimeout(()=>showPage('transaction-detail-page'), 800);
+      showPage('owned-book-page');
+      showToast(result.message || 'Pembayaran berhasil. E-book sudah bisa dibaca dan diunduh.', 'ph-check-circle');
     } catch (error) {
       showToast('Pembayaran belum tersimpan. Coba lagi sebentar.', 'ph-warning');
     } finally {
@@ -4006,6 +4567,22 @@
   }
 
   function downloadBook() {
+    if(!isBookFree(currentBook) && isPaymentRejected()) {
+      showRejectedPaymentNotice();
+      return;
+    }
+    if(!isBookFree(currentBook) && isPaymentPending()) {
+      showPendingPaymentNotice();
+      return;
+    }
+    if(!isBookFree(currentBook) && !purchasedBooks.has(currentBookId)) {
+      showToast('E-book belum bisa diunduh karena pembayaran belum selesai.', 'ph-warning');
+      return;
+    }
+    if(currentBook && currentBook.pdfUrl) {
+      window.open(currentBook.pdfUrl, '_blank', 'noopener');
+      return;
+    }
     showToast('E-book sedang diproses untuk diunduh.', 'ph-download-simple');
   }
 
@@ -4062,10 +4639,63 @@
     if(form) form.submit();
   }
 
+  function openAccountModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if(modal) modal.style.display = 'block';
+    if(modalId === 'settings-modal') updateThemeButtons();
+  }
+
+  function closeAccountModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if(modal) modal.style.display = 'none';
+  }
+
+  function confirmThemeMode(mode) {
+    const selectedMode = mode === 'dark' ? 'dark' : 'light';
+    const currentMode = document.body.classList.contains('theme-dark') ? 'dark' : 'light';
+    if(selectedMode === currentMode) return;
+
+    const label = selectedMode === 'dark' ? 'mode gelap' : 'mode terang';
+    if(confirm(`Ubah tampilan ke ${label}?`)) {
+      setThemeMode(selectedMode);
+    }
+  }
+
+  function setThemeMode(mode, silent = false) {
+    const selectedMode = mode === 'dark' ? 'dark' : 'light';
+    document.body.classList.toggle('theme-dark', selectedMode === 'dark');
+    localStorage.setItem('ebook-theme-mode', selectedMode);
+    updateThemeButtons();
+    if(!silent) showToast(selectedMode === 'dark' ? 'Mode gelap aktif.' : 'Mode terang aktif.', selectedMode === 'dark' ? 'ph-moon' : 'ph-sun');
+  }
+
+  function updateThemeButtons() {
+    const isDark = document.body.classList.contains('theme-dark');
+    const lightBtn = document.getElementById('theme-light-btn');
+    const darkBtn = document.getElementById('theme-dark-btn');
+    if(lightBtn) lightBtn.classList.toggle('active', !isDark);
+    if(darkBtn) darkBtn.classList.toggle('active', isDark);
+  }
+
+  setThemeMode(savedThemeMode, true);
+
   let currentProfile = authenticatedProfile ? {...authenticatedProfile} : null;
 
-  function updateProfile(name, email, photoUrl) {
-    currentProfile = { name, email, photoUrl };
+  function updateProfile(profile) {
+    const name = profile.name || '';
+    const email = profile.email || '';
+    const photoUrl = profile.photoUrl || profile.avatar_url;
+    currentProfile = {
+      name,
+      email,
+      photoUrl,
+      phone: profile.phone || '',
+      gender: profile.gender || '',
+      birthPlace: profile.birthPlace || profile.birth_place || '',
+      birthDate: profile.birthDate || profile.birth_date || '',
+      bio: profile.bio || '',
+      address: profile.address || '',
+    };
     const profileTrigger = document.querySelector('.js-profile-trigger');
     if(profileTrigger) {
       profileTrigger.innerHTML = `<img src="${photoUrl}" alt="Foto profil ${name}" data-user-avatar style="width:26px;height:26px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.4);"> ${name}`;
@@ -4077,8 +4707,10 @@
     });
     const profileName = document.querySelector('.profile-name');
     const profileEmail = document.querySelector('.profile-email');
+    const profileBio = document.querySelector('[data-user-bio]');
     if(profileName) profileName.textContent = name;
     if(profileEmail) profileEmail.textContent = email;
+    if(profileBio) profileBio.textContent = currentProfile.bio || 'Lengkapi bio agar profil akun lebih personal.';
   }
 
   function openProfileEditModal() {
@@ -4094,6 +4726,12 @@
     const error = document.getElementById('profile-edit-error');
 
     nameInput.value = currentProfile.name || '';
+    document.getElementById('profile-phone-input').value = currentProfile.phone || '';
+    document.getElementById('profile-gender-input').value = currentProfile.gender || '';
+    document.getElementById('profile-birth-place-input').value = currentProfile.birthPlace || '';
+    document.getElementById('profile-birth-date-input').value = currentProfile.birthDate || '';
+    document.getElementById('profile-bio-input').value = currentProfile.bio || '';
+    document.getElementById('profile-address-input').value = currentProfile.address || '';
     avatarInput.value = '';
     preview.src = currentProfile.photoUrl;
     preview.alt = `Preview foto profil ${currentProfile.name}`;
@@ -4126,6 +4764,7 @@
   if(profileEditForm) {
     profileEditForm.addEventListener('submit', async event => {
       event.preventDefault();
+      if(!confirmAction('Simpan perubahan profil?')) return;
 
       const submit = document.getElementById('profile-edit-submit');
       submit.disabled = true;
@@ -4151,7 +4790,12 @@
           throw new Error(validationMessage || 'Profil gagal diperbarui.');
         }
 
-        updateProfile(result.user.name, result.user.email, result.user.avatar_url);
+        updateProfile({
+          ...result.user,
+          photoUrl: result.user.avatar_url,
+          birthPlace: result.user.birth_place,
+          birthDate: result.user.birth_date,
+        });
         closeProfileEditModal();
         showToast(result.message || 'Profil berhasil diperbarui.', 'ph-check-circle');
       } catch (error) {
@@ -4164,6 +4808,7 @@
   }
 
   function logout() {
+    if(!confirmAction('Keluar dari akun sekarang?')) return;
     isLoggedIn = false;
     const loginBtn = document.querySelector('.btn-login');
     if(loginBtn) {
@@ -4191,7 +4836,7 @@
   }
 
   if (isLoggedIn && authenticatedProfile) {
-    updateProfile(authenticatedProfile.name, authenticatedProfile.email, authenticatedProfile.photoUrl);
+    updateProfile(authenticatedProfile);
   }
 
   @if ($errors->any())
@@ -4249,14 +4894,44 @@
     applyHomeFilters();
   }
 
+  function renderHomeBooks() {
+    const grid = document.getElementById('home-books-grid');
+    if(!grid) return;
+
+    grid.innerHTML = Object.entries(homeBooks).map(([id, book]) => {
+      const category = book.category || (book.tags && book.tags[0]) || 'E-Book';
+      const safeTitle = String(book.title || '').replace(/"/g, '&quot;');
+      const safeAuthor = String(book.author || '').replace(/"/g, '&quot;');
+
+      return `
+        <div class="book-card" data-book-id="${id}" data-category="${category}" data-title="${String(book.title || '').toLowerCase()}" data-author="${String(book.author || '').toLowerCase()}">
+          <div class="book-cover-wrap">
+            ${isBookFree(book) ? '<span class="book-badge-free"><i class="ph ph-check-circle"></i> Gratis</span>' : ''}
+            <img src="${book.cover}" alt="${safeTitle}" onerror="this.onerror=null;this.src=fallbackCover('${String(book.title || 'Ebook').replace(/'/g, "\\'")}', '${String(book.author || 'Ebook Store').replace(/'/g, "\\'")}')">
+          </div>
+          <div class="book-title">${book.title}</div>
+          <div class="book-author">${book.author}</div>
+          <div class="book-meta-row">
+            <div class="rating"><i class="ph-fill ph-star"></i> ${book.rating || '4.8'} Â· ${category}</div>
+          </div>
+          <button onclick="openBookDetail('${id}')" class="btn-detail"><span>Lihat Detail</span><i class="ph ph-arrow-right"></i></button>
+        </div>
+      `;
+    }).join('');
+
+    applyHomeFilters();
+  }
+
   function applyHomeFilters() {
     const cards = document.querySelectorAll('#home-books-grid .book-card');
     let visible = 0;
     cards.forEach(card => {
       const cat = card.dataset.category || '';
+      const bookId = card.dataset.bookId || '';
       const title = card.dataset.title || '';
       const author = card.dataset.author || '';
-      const catMatch = !activeCategoryFilter || cat === activeCategoryFilter;
+      const categoryRecommendedIds = categoryRecommendations[activeCategoryFilter] || [];
+      const catMatch = !activeCategoryFilter || cat === activeCategoryFilter || categoryRecommendedIds.includes(bookId);
       const searchMatch = !activeSearchFilter || title.includes(activeSearchFilter) || author.includes(activeSearchFilter);
       const show = catMatch && searchMatch;
       card.style.display = show ? '' : 'none';
@@ -4265,9 +4940,19 @@
   }
 
   // ─── INIT ───
+  renderHomeBooks();
+  if(!getBookById(currentBookId)) {
+    currentBookId = Object.keys(homeBooks)[0] || Object.keys(recommendedBooks)[0] || currentBookId;
+  }
   currentBook = getBookById(currentBookId);
   setCurrentBook(currentBookId, currentBook);
   updateReaderPage();
+  if(forceHomeAfterLogin) {
+    localStorage.removeItem(lastPageStorageKey);
+    showPage('home-page');
+  } else {
+    restoreLastOpenedPage();
+  }
   renderQrisCode(selectedWallet);
   renderCategoryRecommendations();
   renderFavoriteBooks();
@@ -4275,6 +4960,39 @@
   updateDetailFavoriteButton();
 
   // Ripple effect on buttons
+  document.addEventListener('submit', event => {
+    const form = event.target;
+    if(!(form instanceof HTMLFormElement) || form.dataset.skipConfirm === 'true') return;
+
+    if(form.id === 'spa-login-form') return;
+
+    const action = form.getAttribute('action') || '';
+    if(action.includes('/login') || action.includes('/two-factor-challenge')) return;
+
+    const methodInput = form.querySelector('input[name="_method"]');
+    const method = (methodInput ? methodInput.value : form.method || 'POST').toUpperCase();
+    if(method === 'GET') return;
+    const submitter = event.submitter;
+    const label = submitter ? submitter.textContent.trim().toLowerCase() : '';
+    const message = form.dataset.confirm || (
+      action.includes('/logout') || label.includes('logout') || label.includes('keluar')
+        ? 'Keluar dari akun sekarang?'
+        : label.includes('approve') || label.includes('setujui')
+          ? 'Setujui pembayaran ini dan beri akses e-book ke user?'
+          : label.includes('reject') || label.includes('tolak')
+            ? 'Tolak pembayaran ini? User tidak akan mendapat akses e-book.'
+            : label.includes('pending')
+              ? 'Ubah status pembayaran ini menjadi pending?'
+              : method === 'DELETE' || label.includes('hapus') || label.includes('delete')
+                ? 'Hapus data ini? Tindakan ini tidak bisa dibatalkan.'
+                : method === 'PATCH' || method === 'PUT'
+                  ? 'Simpan perubahan data ini?'
+                  : 'Simpan data ini?'
+    );
+
+    if(!confirmAction(message)) event.preventDefault();
+  });
+
   document.addEventListener('click', e => {
     const btn = e.target.closest('.btn-buy, .btn-submit, .hero-cta, .btn-pay, .owned-btn-primary');
     if(!btn) return;

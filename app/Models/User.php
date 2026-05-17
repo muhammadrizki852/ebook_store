@@ -18,6 +18,12 @@ class User extends Authenticatable
         'role',
         'google_id',
         'avatar',
+        'phone',
+        'gender',
+        'birth_place',
+        'birth_date',
+        'bio',
+        'address',
     ];
 
     protected $hidden = [
@@ -30,6 +36,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'two_factor_expires_at' => 'datetime',
+        'birth_date' => 'date',
     ];
 
     protected $appends = [

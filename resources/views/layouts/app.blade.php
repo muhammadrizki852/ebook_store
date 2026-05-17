@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'BookStore') — BookStore</title>
+    <title>@yield('title', 'EBook') - EBook</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary:   #1a1a2e;
-            --accent:    #f97316;
-            --accent-dk: #ea6a0a;
+            --primary:   #0f172a;
+            --accent:    #3f5cf6;
+            --accent-dk: #2747e8;
             --star:      #fbbf24;
             --muted:     #6b7280;
             --light-bg:  #f9fafb;
@@ -23,7 +23,7 @@
         body {
             font-family: 'Nunito', sans-serif;
             background: #fff;
-            color: #1a1a2e;
+            color: #0f172a;
         }
 
         h1, h2, h3, h4, h5, .font-serif {
@@ -54,10 +54,10 @@
             background: #fff;
         }
         .navbar-brand-logo {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Nunito', sans-serif;
             font-size: 1.55rem;
-            font-weight: 700;
-            color: var(--primary) !important;
+            font-weight: 800;
+            color: var(--accent) !important;
             text-decoration: none;
             letter-spacing: -0.5px;
         }
@@ -75,7 +75,7 @@
         .nav-link-custom:hover,
         .nav-link-custom.active {
             color: var(--accent) !important;
-            background: #fff7ed;
+            background: #eef2ff;
         }
 
         .navbar-search {
@@ -176,7 +176,7 @@
         .book-card:hover .book-cover-overlay { opacity: 1; }
 
         .badge-cat {
-            background: #fff7ed;
+            background: #eef2ff;
             color: var(--accent);
             font-size: 0.7rem;
             font-weight: 700;
@@ -219,13 +219,13 @@
         .cat-pill.active {
             border-color: var(--accent);
             color: var(--accent);
-            background: #fff7ed;
+            background: #eef2ff;
         }
 
         /* ─── FEATURES ─── */
         .feature-icon {
             width: 60px; height: 60px;
-            background: #fff7ed;
+            background: #eef2ff;
             border-radius: 16px;
             display: flex;
             align-items: center;
@@ -302,7 +302,7 @@
             border-color: var(--accent);
             color: #fff;
         }
-        .pagination .page-link:hover { background: #fff7ed; color: var(--accent); border-color: var(--accent); }
+        .pagination .page-link:hover { background: #eef2ff; color: var(--accent); border-color: var(--accent); }
 
         /* ─── BREADCRUMB ─── */
         .breadcrumb-item + .breadcrumb-item::before { color: #9ca3af; }
@@ -652,7 +652,7 @@
         .feature-box:hover { background: #f9fafb; transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,.06); }
         .feature-box .feature-icon {
             width: 64px; height: 64px;
-            background: #fff7ed;
+            background: #eef2ff;
             border-radius: 18px;
             display: flex; align-items: center; justify-content: center;
             font-size: 1.7rem;
@@ -676,7 +676,9 @@
 
             {{-- Logo --}}
             <a href="{{ route('home') }}" class="navbar-brand-logo me-4">
-                <i class="bi bi-book-half me-1 text-accent"></i>Book<span>Store</span>
+                <span style="width:34px;height:34px;border-radius:10px;background:var(--accent);color:#fff;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 10px 22px rgba(63,92,246,.22);margin-right:8px;">
+                    <i class="bi bi-book-half"></i>
+                </span>EBook
             </a>
 
             {{-- Mobile toggler --}}
@@ -731,7 +733,7 @@
                         <div class="dropdown">
                             <button class="btn-outline-accent dropdown-toggle border-0 d-flex align-items-center gap-2"
                                 data-bs-toggle="dropdown"
-                                style="background:#fff7ed; border:1.5px solid var(--accent) !important; border-radius:25px; padding:7px 16px; font-weight:700; font-size:0.85rem; color:var(--accent);">
+                                style="background:#eef2ff; border:1.5px solid var(--accent) !important; border-radius:25px; padding:7px 16px; font-weight:700; font-size:0.85rem; color:var(--accent);">
                                 <i class="bi bi-person-circle"></i>
                                 {{ Str::limit(auth()->user()->name, 12) }}
                             </button>
@@ -810,6 +812,46 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('submit', function (event) {
+            const form = event.target;
+            if (!(form instanceof HTMLFormElement) || form.dataset.skipConfirm === 'true') {
+                return;
+            }
+
+            const action = form.getAttribute('action') || '';
+            if (action.includes('/login') || action.includes('/register') || action.includes('/two-factor-challenge')) {
+                return;
+            }
+
+            const methodInput = form.querySelector('input[name="_method"]');
+            const method = (methodInput ? methodInput.value : form.method || 'POST').toUpperCase();
+            if (method === 'GET') {
+                return;
+            }
+            const submitter = event.submitter;
+            const label = submitter ? submitter.textContent.trim().toLowerCase() : '';
+            const message = form.dataset.confirm || (
+                action.includes('/logout') || label.includes('logout') || label.includes('keluar')
+                    ? 'Keluar dari akun sekarang?'
+                    : label.includes('approve') || label.includes('setujui')
+                        ? 'Setujui pembayaran ini dan beri akses e-book ke user?'
+                        : label.includes('reject') || label.includes('tolak')
+                            ? 'Tolak pembayaran ini? User tidak akan mendapat akses e-book.'
+                            : label.includes('pending')
+                                ? 'Ubah status pembayaran ini menjadi pending?'
+                                : method === 'DELETE' || label.includes('delete') || label.includes('hapus')
+                                    ? 'Hapus data ini? Tindakan ini tidak bisa dibatalkan.'
+                                    : method === 'PATCH' || method === 'PUT'
+                                        ? 'Simpan perubahan data ini?'
+                                        : 'Simpan data ini?'
+            );
+
+            if (!confirm(message)) {
+                event.preventDefault();
+            }
+        });
+    </script>
     @yield('scripts')
 </body>
 </html>

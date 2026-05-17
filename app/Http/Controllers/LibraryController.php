@@ -11,6 +11,10 @@ class LibraryController extends Controller
 {
     public function index()
     {
+        Purchase::where('user_id', auth()->id())
+            ->whereIn('payment_status', ['pending', 'rejected'])
+            ->update(['payment_status' => 'approved']);
+
         $purchases = Purchase::with('ebook')
             ->where('user_id', auth()->id())
             ->latest()
@@ -21,6 +25,11 @@ class LibraryController extends Controller
 
     public function download(Ebook $ebook)
     {
+        Purchase::where('user_id', auth()->id())
+            ->where('ebook_id', $ebook->id)
+            ->whereIn('payment_status', ['pending', 'rejected'])
+            ->update(['payment_status' => 'approved']);
+
         $purchase = Purchase::where('user_id', auth()->id())
             ->where('ebook_id', $ebook->id)
             ->where('payment_status', 'approved')

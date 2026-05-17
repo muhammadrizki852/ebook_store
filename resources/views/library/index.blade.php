@@ -74,19 +74,9 @@
                                     <h5 style="font-family:'Playfair Display',serif; font-weight:700; margin-bottom:0; font-size:1.05rem; color:#1a1a2e;">
                                         {{ $purchase->ebook->title ?? 'Deleted Ebook' }}
                                     </h5>
-                                    @if($purchase->payment_status === 'approved')
-                                        <span style="background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0; border-radius:20px; padding:2px 12px; font-size:0.72rem; font-weight:700;">
-                                            <i class="bi bi-check-circle-fill me-1"></i>Approved
-                                        </span>
-                                    @elseif($purchase->payment_status === 'pending')
-                                        <span style="background:#fffbeb; color:#d97706; border:1px solid #fde68a; border-radius:20px; padding:2px 12px; font-size:0.72rem; font-weight:700;">
-                                            <i class="bi bi-clock-fill me-1"></i>Pending Review
-                                        </span>
-                                    @else
-                                        <span style="background:#fef2f2; color:#dc2626; border:1px solid #fecaca; border-radius:20px; padding:2px 12px; font-size:0.72rem; font-weight:700;">
-                                            <i class="bi bi-x-circle-fill me-1"></i>Rejected
-                                        </span>
-                                    @endif
+                                    <span style="background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0; border-radius:20px; padding:2px 12px; font-size:0.72rem; font-weight:700;">
+                                        <i class="bi bi-check-circle-fill me-1"></i>Approved
+                                    </span>
                                 </div>
                                 @if($purchase->ebook)
                                     <p style="color:#6b7280; font-size:0.82rem; margin-bottom:6px;">by <strong>{{ $purchase->ebook->author }}</strong></p>
@@ -94,41 +84,26 @@
                                 <div class="d-flex flex-wrap gap-3" style="font-size:0.8rem; color:#9ca3af;">
                                     <span><i class="bi bi-tag me-1 text-accent"></i>${{ number_format($purchase->amount, 2) }}</span>
                                     <span><i class="bi bi-calendar3 me-1"></i>{{ $purchase->created_at->format('M d, Y') }}</span>
-                                    @if($purchase->notes && $purchase->payment_status === 'pending')
-                                        <span><i class="bi bi-chat-text me-1"></i>{{ Str::limit($purchase->notes, 50) }}</span>
-                                    @endif
                                 </div>
                             </div>
 
                             {{-- Action --}}
                             <div class="col-auto text-center">
-                                @if($purchase->isApproved() && $purchase->ebook)
+                                @if($purchase->ebook)
                                     <a href="{{ route('library.download', $purchase->ebook) }}"
                                         style="background:#f97316; color:#fff; border-radius:25px; padding:10px 24px; font-weight:700; font-size:0.85rem; text-decoration:none; display:inline-flex; align-items:center; gap:6px; transition:background .2s;"
                                         onmouseover="this.style.background='#ea6a0a'"
                                         onmouseout="this.style.background='#f97316'">
                                         <i class="bi bi-download"></i> Download
                                     </a>
-                                @elseif($purchase->isPending())
-                                    <div>
-                                        <div class="spinner-border spinner-border-sm mb-1" style="color:#d97706;" role="status"></div>
-                                        <div style="font-size:0.75rem; color:#9ca3af;">Awaiting approval</div>
-                                    </div>
                                 @else
                                     <div>
-                                        <i class="bi bi-x-circle-fill d-block mb-1" style="font-size:1.4rem; color:#dc2626;"></i>
-                                        <div style="font-size:0.75rem; color:#9ca3af;">Rejected</div>
+                                        <i class="bi bi-info-circle d-block mb-1" style="font-size:1.4rem; color:#9ca3af;"></i>
+                                        <div style="font-size:0.75rem; color:#9ca3af;">File unavailable</div>
                                     </div>
                                 @endif
                             </div>
                         </div>
-
-                        @if($purchase->payment_status === 'rejected' && $purchase->notes)
-                            <div style="margin-top:14px; background:#fef2f2; border:1px solid #fecaca; border-radius:10px; padding:12px 16px; font-size:0.82rem; color:#dc2626;">
-                                <i class="bi bi-info-circle me-1"></i>
-                                <strong>Rejection reason:</strong> {{ $purchase->notes }}
-                            </div>
-                        @endif
                     </div>
                 @endforeach
             </div>

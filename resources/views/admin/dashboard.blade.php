@@ -35,7 +35,7 @@
                         <i class="bi bi-bag-check-fill"></i>
                     </div>
                 </div>
-                <p class="text-muted small mt-3 mb-0"><i class="bi bi-check2-circle me-1"></i>Approved purchases</p>
+                <p class="text-muted small mt-3 mb-0"><i class="bi bi-check2-circle me-1"></i>Auto-approved purchases</p>
             </div>
         </div>
     </div>
@@ -63,38 +63,13 @@
                 <div class="d-flex justify-content-between align-items-start">
                     <div>
                         <p class="text-muted small mb-1 fw-semibold text-uppercase" style="letter-spacing: 0.05em;">Total Revenue</p>
-                        <h2 class="fw-bold mb-0">${{ number_format($totalRevenue, 2) }}</h2>
+                        <h2 class="fw-bold mb-0">Rp {{ number_format($totalRevenue, 0, ',', '.') }}</h2>
                     </div>
                     <div class="stat-icon" style="background: #dcfce7; color: #15803d;">
                         <i class="bi bi-cash-stack"></i>
                     </div>
                 </div>
-                <p class="text-muted small mt-3 mb-0"><i class="bi bi-graph-up me-1"></i>From approved payments</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-6 col-xl-3">
-        <div class="card stat-card shadow-sm h-100">
-            <div class="card-body p-4">
-                <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                        <p class="text-muted small mb-1 fw-semibold text-uppercase" style="letter-spacing: 0.05em;">Pending Payments</p>
-                        <h2 class="fw-bold mb-0">{{ number_format($pendingPayments) }}</h2>
-                    </div>
-                    <div class="stat-icon" style="background: #fef3c7; color: #b45309;">
-                        <i class="bi bi-clock-history"></i>
-                    </div>
-                </div>
-                <p class="text-muted small mt-3 mb-0">
-                    @if($pendingPayments > 0)
-                        <a href="{{ route('admin.payments.index', ['status' => 'pending']) }}" class="text-warning text-decoration-none">
-                            <i class="bi bi-arrow-right me-1"></i>Review now
-                        </a>
-                    @else
-                        <i class="bi bi-check me-1"></i>All clear
-                    @endif
-                </p>
+                <p class="text-muted small mt-3 mb-0"><i class="bi bi-graph-up me-1"></i>From completed payments</p>
             </div>
         </div>
     </div>
@@ -114,11 +89,11 @@
                             <small class="opacity-75">Upload PDF & cover image</small>
                         </div>
                     </a>
-                    <a href="{{ route('admin.payments.index', ['status' => 'pending']) }}" class="btn btn-warning d-flex align-items-center gap-2 text-dark">
+                    <a href="{{ route('admin.payments.index') }}" class="btn btn-success d-flex align-items-center gap-2">
                         <i class="bi bi-credit-card fs-5"></i>
                         <div class="text-start">
-                            <div class="fw-semibold">Review Payments</div>
-                            <small class="opacity-75">{{ $pendingPayments }} pending</small>
+                            <div class="fw-semibold">View Payments</div>
+                            <small class="opacity-75">Payments auto-approved</small>
                         </div>
                     </a>
                     <a href="{{ route('admin.ebooks.index') }}" class="btn btn-outline-primary d-flex align-items-center gap-2">
@@ -173,15 +148,9 @@
                                             <div class="text-muted" style="font-size: 0.75rem;">{{ $purchase->user->email ?? '' }}</div>
                                         </td>
                                         <td class="small">{{ Str::limit($purchase->ebook->title ?? '-', 30) }}</td>
-                                        <td class="fw-semibold text-success small">${{ number_format($purchase->amount, 2) }}</td>
+                                        <td class="fw-semibold text-success small">Rp {{ number_format($purchase->amount ?? $purchase->ebook?->price ?? 0, 0, ',', '.') }}</td>
                                         <td>
-                                            @if($purchase->payment_status === 'approved')
-                                                <span class="badge badge-approved rounded-pill">Approved</span>
-                                            @elseif($purchase->payment_status === 'pending')
-                                                <span class="badge badge-pending rounded-pill">Pending</span>
-                                            @else
-                                                <span class="badge badge-rejected rounded-pill">Rejected</span>
-                                            @endif
+                                            <span class="badge badge-approved rounded-pill">Approved</span>
                                         </td>
                                         <td class="text-muted small">{{ $purchase->created_at->format('M d') }}</td>
                                     </tr>

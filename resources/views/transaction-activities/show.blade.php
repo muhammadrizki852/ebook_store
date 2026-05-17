@@ -8,8 +8,8 @@
     <div class="card-body">
         <div class="row g-4">
             <div class="col-md-6">
-                <h5>ID</h5>
-                <p class="mb-0">{{ $transactionActivity->id }}</p>
+                <h5>No</h5>
+                <p class="mb-0">{{ $activityNumber }}</p>
             </div>
             <div class="col-md-6">
                 <h5>User</h5>
@@ -29,7 +29,8 @@
             </div>
             <div class="col-md-6">
                 <h5>Amount</h5>
-                <p class="mb-0">{{ $transactionActivity->amount ? '$' . number_format($transactionActivity->amount, 2) : 'N/A' }}</p>
+                @php($amount = $transactionActivity->amount ?? $transactionActivity->ebook?->price)
+                <p class="mb-0">{{ $amount !== null ? 'Rp ' . number_format($amount, 0, ',', '.') : 'N/A' }}</p>
             </div>
             <div class="col-md-6">
                 <h5>Created At</h5>
@@ -43,7 +44,6 @@
 
         <div class="mt-4 d-flex justify-content-end gap-2">
             <a href="{{ route('admin.transaction-activities.index') }}" class="btn btn-outline-secondary">Back to List</a>
-            <a href="{{ route('admin.transaction-activities.edit', $transactionActivity) }}" class="btn btn-primary">Edit</a>
         </div>
     </div>
 </div>

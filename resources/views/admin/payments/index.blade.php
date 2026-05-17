@@ -6,12 +6,7 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h3 mb-0">Payments</h1>
-    <div>
-        <a href="{{ route('admin.payments.index') }}" class="btn btn-outline-secondary btn-sm me-2">All</a>
-        <a href="{{ route('admin.payments.index', ['status' => 'pending']) }}" class="btn btn-outline-warning btn-sm me-2">Pending</a>
-        <a href="{{ route('admin.payments.index', ['status' => 'approved']) }}" class="btn btn-outline-success btn-sm me-2">Approved</a>
-        <a href="{{ route('admin.payments.index', ['status' => 'rejected']) }}" class="btn btn-outline-danger btn-sm">Rejected</a>
-    </div>
+    <span class="badge bg-success-subtle text-success border border-success-subtle">Auto Approved</span>
 </div>
 
 @if(session('success'))
@@ -27,9 +22,9 @@
                         <th>User</th>
                         <th>Ebook</th>
                         <th>Amount</th>
+                        <th>Proof / Notes</th>
                         <th>Status</th>
                         <th>Date</th>
-                        <th class="text-end">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,35 +35,23 @@
                                 <div class="text-muted small">{{ $purchase->user->email ?? '-' }}</div>
                             </td>
                             <td>{{ $purchase->ebook->title ?? '-' }}</td>
-                            <td class="fw-semibold text-success">${{ number_format($purchase->amount, 2) }}</td>
+                            <td class="fw-semibold text-success">Rp {{ number_format($purchase->amount ?? $purchase->ebook?->price ?? 0, 0, ',', '.') }}</td>
                             <td>
-                                @if($purchase->payment_status === 'approved')
-                                    <span class="badge bg-success">Approved</span>
-                                @elseif($purchase->payment_status === 'pending')
-                                    <span class="badge bg-warning text-dark">Pending</span>
+                                @if($purchase->payment_proof)
+                                    <a href="{{ asset('storage/' . $purchase->payment_proof) }}" target="_blank" class="btn btn-sm btn-outline-primary mb-1">
+                                        <i class="bi bi-receipt me-1"></i>View Proof
+                                    </a>
                                 @else
-                                    <span class="badge bg-danger">Rejected</span>
+                                    <div class="text-muted small mb-1">No proof uploaded</div>
+                                @endif
+                                @if($purchase->notes)
+                                    <div class="small text-muted">{{ Str::limit($purchase->notes, 70) }}</div>
                                 @endif
                             </td>
-                            <td>{{ $purchase->created_at->format('M d, Y') }}</td>
-                            <td class="text-end">
-                                <div class="d-flex justify-content-end gap-2">
-                                    @if($purchase->payment_status === 'pending')
-                                        <form action="{{ route('admin.payments.approve', $purchase) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button type="submit" class="btn btn-sm btn-success">Approve</button>
-                                        </form>
-                                        <form action="{{ route('admin.payments.reject', $purchase) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button type="submit" class="btn btn-sm btn-danger">Reject</button>
-                                        </form>
-                                    @else
-                                        <span class="text-muted small">No actions</span>
-                                    @endif
-                                </div>
+                            <td>
+                                <span class="badge bg-success">Approved</span>
                             </td>
+                            <td>{{ $purchase->created_at->format('M d, Y') }}</td>
                         </tr>
                     @empty
                         <tr>

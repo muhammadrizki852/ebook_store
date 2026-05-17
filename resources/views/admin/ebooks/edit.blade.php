@@ -6,7 +6,7 @@
 @section('content')
 <div class="card border-0 shadow-sm rounded-4">
     <div class="card-body p-4">
-        <form action="{{ route('admin.ebooks.update', $ebook) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.ebooks.update', $ebook) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirmUpdateEbook(this)">
             @csrf
             @method('PUT')
 
@@ -28,8 +28,8 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label">Price</label>
-                    <input type="number" name="price" step="0.01" value="{{ old('price', $ebook->price) }}" class="form-control @error('price') is-invalid @enderror" required>
+                    <label class="form-label">Price (Rp)</label>
+                    <input type="number" name="price" step="1" value="{{ old('price', $ebook->price) }}" class="form-control @error('price') is-invalid @enderror" required>
                     @error('price')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -37,7 +37,11 @@
 
                 <div class="col-md-6">
                     <label class="form-label">Category</label>
-                    <input type="text" name="category" value="{{ old('category', $ebook->category) }}" class="form-control @error('category') is-invalid @enderror" required>
+                    <select name="category" class="form-select @error('category') is-invalid @enderror" required>
+                        @foreach($categories as $category)
+                            <option value="{{ $category }}" {{ old('category', $ebook->category) === $category ? 'selected' : '' }}>{{ $category }}</option>
+                        @endforeach
+                    </select>
                     @error('category')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -92,4 +96,23 @@
         </form>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    function confirmUpdateEbook(form) {
+        const status = form.querySelector('[name="status"]').value;
+        const currentStatus = @json($ebook->status);
+
+        if (status === 'published' && currentStatus !== 'published') {
+            return confirm('Yakin ingin publish ebook ini? Setelah update, buku akan langsung tampil di aplikasi.');
+        }
+
+        if (status === 'published') {
+            return confirm('Yakin ingin update ebook yang sudah published? Perubahan akan langsung tampil di aplikasi.');
+        }
+
+        return confirm('Yakin ingin menyimpan perubahan ebook ini?');
+    }
+</script>
 @endsection

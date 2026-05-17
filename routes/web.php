@@ -8,12 +8,14 @@ use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UserAvatarController;
+use App\Models\Ebook;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EbookController as AdminEbookController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\TransactionActivityController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 // Auth routes
 Route::middleware('guest')->group(function () {
@@ -36,9 +38,43 @@ Route::get('/users/{user}/avatar', [UserAvatarController::class, 'show'])->name(
 
 // Public routes
 Route::get('/', function () {
-    return view('spa');
+    $publishedEbooks = collect();
+    $topRecommendedSlugs = [
+        'laut-bercerita',
+        'atomic-habits',
+        'psychology-of-money',
+        'mindset',
+        'clean-code',
+        'sapiens',
+    ];
+
+    if (Schema::hasTable('ebooks')) {
+        $publishedEbooks = Ebook::published()
+            ->latest()
+            ->get()
+            ->sortBy(function (Ebook $ebook) use ($topRecommendedSlugs) {
+                $position = array_search($ebook->slug, $topRecommendedSlugs, true);
+
+                return $position === false ? count($topRecommendedSlugs) + $ebook->id : $position;
+            })
+            ->map(fn (Ebook $ebook) => [
+                'id' => $ebook->slug,
+                'title' => $ebook->title,
+                'author' => $ebook->author,
+                'description' => $ebook->description,
+                'category' => $ebook->category,
+                'cover' => $ebook->cover_url,
+                'price' => (float) $ebook->price,
+                'isFree' => (float) $ebook->price <= 0,
+                'pdfUrl' => $ebook->file_path ? route('ebooks.read-pdf', $ebook) : null,
+            ])
+            ->values();
+    }
+
+    return view('spa', compact('publishedEbooks'));
 })->name('home');
 Route::get('/ebooks/{ebook:slug}', [EbookController::class, 'show'])->name('ebooks.show');
+Route::get('/ebooks/{ebook:slug}/read-pdf', [EbookController::class, 'readPdf'])->name('ebooks.read-pdf');
 
 // Authenticated user routes
 Route::middleware('auth')->group(function () {
@@ -47,6 +83,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/library/download/{ebook}', [LibraryController::class, 'download'])->name('library.download');
     Route::get('/purchase/{ebook}', [PurchaseController::class, 'create'])->name('purchase.create');
     Route::post('/purchase/{ebook}', [PurchaseController::class, 'store'])->name('purchase.store');
+    Route::get('/purchase/{ebook:slug}/status', [PurchaseController::class, 'status'])->name('purchase.status');
     Route::post('/purchase/{ebook:slug}/quick', [PurchaseController::class, 'quickStore'])->name('purchase.quick-store');
     Route::post('/favorites/{ebook:slug}', [FavoriteController::class, 'store'])->name('favorites.store');
     Route::delete('/favorites/{ebook:slug}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
@@ -61,12 +98,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Payments
     Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
-    Route::patch('/payments/{purchase}/approve', [PaymentController::class, 'approve'])->name('payments.approve');
-    Route::patch('/payments/{purchase}/reject', [PaymentController::class, 'reject'])->name('payments.reject');
 
     // Users
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
-    // Transaction Activities CRUD
-    Route::resource('transaction-activities', TransactionActivityController::class);
+    // Transaction Activities are generated automatically from purchases.
+    Route::resource('transaction-activities', TransactionActivityController::class)->only(['index', 'show']);
 });

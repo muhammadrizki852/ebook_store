@@ -51,6 +51,37 @@
         .badge-rejected { background-color: #fee2e2; color: #991b1b; }
         .badge-published { background-color: #d1fae5; color: #065f46; }
         .badge-draft { background-color: #f3f4f6; color: #374151; }
+        .pagination {
+            justify-content: center;
+            gap: 0.25rem;
+            margin-bottom: 0;
+        }
+        .pagination .page-link {
+            min-width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid #dbe3ef;
+            color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            box-shadow: none;
+        }
+        .pagination .page-item.active .page-link {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+        .pagination .page-item.disabled .page-link {
+            color: #94a3b8;
+            background: #f8fafc;
+        }
+        .pagination .page-link:hover {
+            background: #eef2ff;
+            border-color: #c7d2fe;
+            color: var(--primary-dark);
+        }
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); }
             .sidebar.show { transform: translateX(0); }
@@ -136,6 +167,41 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('submit', function (event) {
+            const form = event.target;
+            if (!(form instanceof HTMLFormElement) || form.dataset.skipConfirm === 'true' || form.hasAttribute('onsubmit')) {
+                return;
+            }
+
+            const methodInput = form.querySelector('input[name="_method"]');
+            const method = (methodInput ? methodInput.value : form.method || 'POST').toUpperCase();
+            if (method === 'GET') {
+                return;
+            }
+            const submitter = event.submitter;
+            const label = submitter ? submitter.textContent.trim().toLowerCase() : '';
+            const message = form.dataset.confirm || (
+                label.includes('logout') || label.includes('keluar')
+                    ? 'Keluar dari akun admin sekarang?'
+                    : label.includes('approve') || label.includes('setujui')
+                        ? 'Setujui pembayaran ini dan beri akses e-book ke user?'
+                        : label.includes('reject') || label.includes('tolak')
+                            ? 'Tolak pembayaran ini? User tidak akan mendapat akses e-book.'
+                            : label.includes('pending')
+                                ? 'Ubah status pembayaran ini menjadi pending?'
+                                : method === 'DELETE' || label.includes('delete') || label.includes('hapus')
+                                    ? 'Hapus data ini? Tindakan ini tidak bisa dibatalkan.'
+                                    : method === 'PATCH' || method === 'PUT'
+                                        ? 'Simpan perubahan data ini?'
+                                        : 'Simpan data ini?'
+            );
+
+            if (!confirm(message)) {
+                event.preventDefault();
+            }
+        });
+    </script>
     @yield('scripts')
 </body>
 </html>

@@ -24,19 +24,37 @@
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th class="ps-4 py-3">Ebook</th>
+                        <th class="ps-4 py-3">Actions</th>
+                        <th>Ebook</th>
+                        <th>Description</th>
                         <th>Author</th>
                         <th>Category</th>
                         <th>Price</th>
                         <th>Status</th>
                         <th>Sales</th>
-                        <th class="pe-4 text-end">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($ebooks as $ebook)
                         <tr>
                             <td class="ps-4 py-3">
+                                <div class="d-flex gap-2">
+                                    <a href="{{ route('ebooks.show', $ebook->slug) }}" class="btn btn-sm btn-outline-secondary" target="_blank" title="Preview">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="{{ route('admin.ebooks.edit', $ebook) }}" class="btn btn-sm btn-outline-primary" title="Edit">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <form action="{{ route('admin.ebooks.destroy', $ebook) }}" method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus ebook {{ addslashes($ebook->title) }}? Buku ini akan hilang dari aplikasi dan tindakan ini tidak bisa dibatalkan.')">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                            <td>
                                 <div class="d-flex align-items-center gap-3">
                                     @if($ebook->cover_url)
                                         <img src="{{ $ebook->cover_url }}"
@@ -59,9 +77,12 @@
                                     </div>
                                 </div>
                             </td>
+                            <td class="small text-muted" style="max-width: 320px;">
+                                {{ Str::limit($ebook->description, 110) }}
+                            </td>
                             <td class="small">{{ $ebook->author }}</td>
                             <td><span class="badge rounded-pill" style="background-color: #e0e7ff; color: #4f46e5;">{{ $ebook->category }}</span></td>
-                            <td class="fw-semibold text-success">${{ number_format($ebook->price, 2) }}</td>
+                            <td class="fw-semibold text-success">Rp {{ number_format($ebook->price, 0, ',', '.') }}</td>
                             <td>
                                 @if($ebook->status === 'published')
                                     <span class="badge badge-published rounded-pill">
@@ -74,27 +95,10 @@
                                 @endif
                             </td>
                             <td class="small text-muted">{{ number_format($ebook->sales_count) }} sold</td>
-                            <td class="pe-4 text-end">
-                                <div class="d-flex gap-2 justify-content-end">
-                                    <a href="{{ route('ebooks.show', $ebook->slug) }}" class="btn btn-sm btn-outline-secondary" target="_blank" title="Preview">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-                                    <a href="{{ route('admin.ebooks.edit', $ebook) }}" class="btn btn-sm btn-outline-primary" title="Edit">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                    <form action="{{ route('admin.ebooks.destroy', $ebook) }}" method="POST"
-                                        onsubmit="return confirm('Delete \'{{ addslashes($ebook->title) }}\'? This cannot be undone.')">
-                                        @csrf @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="text-center py-5 text-muted">
+                            <td colspan="8" class="text-center py-5 text-muted">
                                 <i class="bi bi-journal-x fs-1 d-block mb-2"></i>
                                 No ebooks found.
                                 <a href="{{ route('admin.ebooks.create') }}">Add your first ebook</a>

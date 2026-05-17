@@ -14,7 +14,7 @@ class TransactionActivityController extends Controller
      */
     public function index()
     {
-        $activities = TransactionActivity::with('user', 'ebook')->paginate(10);
+        $activities = TransactionActivity::with('user', 'ebook')->orderBy('id')->paginate(10);
         return view('transaction-activities.index', compact('activities'));
     }
 
@@ -51,7 +51,9 @@ class TransactionActivityController extends Controller
      */
     public function show(TransactionActivity $transactionActivity)
     {
-        return view('transaction-activities.show', compact('transactionActivity'));
+        $activityNumber = TransactionActivity::where('id', '<=', $transactionActivity->id)->count();
+
+        return view('transaction-activities.show', compact('transactionActivity', 'activityNumber'));
     }
 
     /**

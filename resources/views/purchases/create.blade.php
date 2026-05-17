@@ -45,13 +45,13 @@
                     </div>
                 </div>
 
-                {{-- Pending payment warning --}}
+                {{-- Existing purchase notice --}}
                 @if($existingPurchase)
-                    <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:12px; padding:16px 20px; margin-bottom:24px; font-size:0.88rem; color:#92400e;">
-                        <i class="bi bi-clock-history me-2"></i>
-                        <strong>You already have a pending payment</strong> for this ebook submitted on
+                    <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:16px 20px; margin-bottom:24px; font-size:0.88rem; color:#15803d;">
+                        <i class="bi bi-check-circle me-2"></i>
+                        <strong>You already own this ebook</strong> from
                         {{ $existingPurchase->created_at->format('M d, Y') }}.
-                        Please wait for admin approval or check your <a href="{{ route('library') }}" style="color:#f97316; font-weight:700;">library</a>.
+                        Open it from your <a href="{{ route('library') }}" style="color:#16a34a; font-weight:700;">library</a>.
                     </div>
                 @endif
 
@@ -65,7 +65,7 @@
                         <li>Bank: <strong>Example Bank</strong> &bull; Account: <strong>1234-5678-9000</strong></li>
                         <li>Account name: <strong>Ebook Store Inc.</strong></li>
                         <li>Take a screenshot or photo of the transfer receipt</li>
-                        <li>Upload the proof below and submit your order</li>
+                        <li>Upload the proof below and your e-book will be available right away</li>
                     </ol>
                 </div>
 

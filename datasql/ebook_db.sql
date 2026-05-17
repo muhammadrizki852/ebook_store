@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `purchases` (
   `user_id` bigint unsigned NOT NULL,
   `ebook_id` bigint unsigned NOT NULL,
   `payment_proof` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_status` enum('pending','approved','rejected') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `payment_status` enum('pending','approved','rejected') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'approved',
   `amount` decimal(10,2) NOT NULL,
   `notes` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,

@@ -11,13 +11,14 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        Purchase::whereIn('payment_status', ['pending', 'rejected'])->update(['payment_status' => 'approved']);
+
         $totalUsers    = User::where('role', 'user')->count();
         $totalEbooks   = Ebook::published()->count();
         $publishedEbooks = $totalEbooks;
         $draftEbooks   = Ebook::where('status', 'draft')->count();
         $totalSales    = Purchase::where('payment_status', 'approved')->count();
         $totalRevenue  = Purchase::where('payment_status', 'approved')->sum('amount');
-        $pendingPayments = Purchase::where('payment_status', 'pending')->count();
         $recentPurchases = Purchase::with(['user', 'ebook'])->latest()->limit(5)->get();
 
         return view('admin.dashboard', compact(
@@ -25,7 +26,6 @@ class DashboardController extends Controller
             'totalEbooks',
             'totalSales',
             'totalRevenue',
-            'pendingPayments',
             'publishedEbooks',
             'draftEbooks',
             'recentPurchases'

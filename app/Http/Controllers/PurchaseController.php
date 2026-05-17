@@ -41,11 +41,7 @@ class PurchaseController extends Controller
             return redirect()->route('library')->with('info', 'You already own this ebook.');
         }
 
-        // Check for pending purchase
-        $existingPurchase = Purchase::where('user_id', auth()->id())
-            ->where('ebook_id', $ebook->id)
-            ->where('payment_status', 'pending')
-            ->first();
+        $existingPurchase = null;
 
         return view('purchases.create', compact('ebook', 'existingPurchase'));
     }
@@ -62,19 +58,10 @@ class PurchaseController extends Controller
 
         $existingPurchase = Purchase::where('user_id', auth()->id())
             ->where('ebook_id', $ebook->id)
-            ->whereIn('payment_status', ['pending', 'approved'])
+            ->where('payment_status', 'approved')
             ->first();
 
         if ($existingPurchase) {
-            if ($existingPurchase->payment_status === 'pending') {
-                $existingPurchase->update([
-                    'payment_status' => 'approved',
-                    'notes' => trim(($existingPurchase->notes ? $existingPurchase->notes . "\n" : '') . 'Auto-approved when the user completed checkout.'),
-                ]);
-
-                return redirect()->route('library')->with('success', 'Purchase completed! The ebook is now available in your library.');
-            }
-
             return redirect()->route('library')->with('info', 'You already own this ebook.');
         }
 
@@ -94,7 +81,7 @@ class PurchaseController extends Controller
             'notes'          => $request->notes,
         ]);
 
-        return redirect()->route('library')->with('success', 'Purchase completed! The ebook is now available in your library.');
+        return redirect()->route('library')->with('success', 'Pembayaran berhasil. E-book sudah tersedia di perpustakaan Anda.');
     }
 
     public function quickStore(Request $request, Ebook $ebook)
@@ -109,25 +96,12 @@ class PurchaseController extends Controller
 
         $existingPurchase = Purchase::where('user_id', auth()->id())
             ->where('ebook_id', $ebook->id)
-            ->whereIn('payment_status', ['pending', 'approved'])
+            ->where('payment_status', 'approved')
             ->first();
 
         if ($existingPurchase) {
-            $wasPending = $existingPurchase->payment_status === 'pending';
-
-            if ($existingPurchase->payment_status === 'pending') {
-                $paymentMethod = $request->input('payment_method', 'SPA payment');
-
-                $existingPurchase->update([
-                    'payment_status' => 'approved',
-                    'notes' => trim(($existingPurchase->notes ? $existingPurchase->notes . "\n" : '') . "Auto-approved from app payment page via {$paymentMethod}."),
-                ]);
-            }
-
             return response()->json([
-                'message' => $wasPending
-                    ? 'Purchase completed. The ebook is now available.'
-                    : 'You already own this ebook.',
+                'message' => 'You already own this ebook.',
                 'transaction_id' => 'TRX-' . $existingPurchase->created_at->format('Ymd') . '-' . str_pad((string) $existingPurchase->id, 3, '0', STR_PAD_LEFT),
                 'status' => $existingPurchase->payment_status,
                 'created_at' => $existingPurchase->created_at->toIso8601String(),
@@ -142,15 +116,33 @@ class PurchaseController extends Controller
             'ebook_id' => $ebook->id,
             'payment_status' => 'approved',
             'amount' => $ebook->price,
-            'notes' => "Auto-approved from app payment page via {$paymentMethod}.",
+            'notes' => "Submitted from app payment page via {$paymentMethod}.",
         ]);
 
         return response()->json([
-            'message' => 'Purchase completed. The ebook is now available.',
+            'message' => 'Pembayaran berhasil. E-book sudah tersedia.',
             'transaction_id' => 'TRX-' . $purchase->created_at->format('Ymd') . '-' . str_pad((string) $purchase->id, 3, '0', STR_PAD_LEFT),
             'status' => $purchase->payment_status,
             'created_at' => $purchase->created_at->toIso8601String(),
             'formatted_created_at' => $this->formatTransactionDate($purchase->created_at),
         ], 201);
+    }
+
+    public function status(Ebook $ebook)
+    {
+        $purchase = Purchase::where('user_id', auth()->id())
+            ->where('ebook_id', $ebook->id)
+            ->latest()
+            ->firstOrFail();
+
+        return response()->json([
+            'transaction_id' => 'TRX-' . $purchase->created_at->format('Ymd') . '-' . str_pad((string) $purchase->id, 3, '0', STR_PAD_LEFT),
+            'status' => $purchase->payment_status,
+            'created_at' => $purchase->created_at->toIso8601String(),
+            'formatted_created_at' => $this->formatTransactionDate($purchase->created_at),
+            'payment_method' => $purchase->notes && str_contains($purchase->notes, 'via ')
+                ? rtrim(str($purchase->notes)->after('via ')->toString(), '.')
+                : null,
+        ]);
     }
 }

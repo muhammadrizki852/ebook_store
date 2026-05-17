@@ -18,6 +18,24 @@ class Purchase extends Model
         'notes',
     ];
 
+    protected static function booted(): void
+    {
+        static::creating(function (Purchase $purchase) {
+            $purchase->payment_status = 'approved';
+        });
+
+        static::created(function (Purchase $purchase) {
+            TransactionActivity::create([
+                'purchase_id' => $purchase->id,
+                'user_id' => $purchase->user_id,
+                'ebook_id' => $purchase->ebook_id,
+                'activity_type' => 'purchase',
+                'description' => 'User purchased ebook.',
+                'amount' => $purchase->amount,
+            ]);
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
